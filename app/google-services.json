@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "419319693932",
+    "project_id": "meetmydog-6a9f5",
+    "storage_bucket": "meetmydog-6a9f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419319693932:android:9974de638c9443e71e4e49",
+        "android_client_info": {
+          "package_name": "com.ucm.meetmydog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "419319693932-hogdjl1kh4k1a8jl2m36andf54fbp507.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoCS6SEsOA3hHhSXtRKjh64vFm7B_5Foc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "419319693932-hogdjl1kh4k1a8jl2m36andf54fbp507.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

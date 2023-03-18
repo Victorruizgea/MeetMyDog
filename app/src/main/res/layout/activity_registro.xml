@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistroActivity">
+    <TextView
+        android:id="@+id/textRegistro"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginTop="82dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Rellena los campos:"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/nombreUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="79dp"
+        android:ems="10"
+        android:hint="Nombre de usuario"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text=""
+
+
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/emailUsuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textRegistro"
+        />
+
+    <Button
+        android:id="@+id/botonRegistro"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:backgroundTint="@color/black"
+        android:text="Registrarse"
+        app:iconTint="#2AFFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordUsuario"
+        />
+
+    <EditText
+        android:id="@+id/emailUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Correo electrónico"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:text=""
+        android:textSize="18sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nombreUsuario"
+        />
+
+    <EditText
+        android:id="@+id/passwordUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:ems="10"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:text=""
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailUsuario"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
