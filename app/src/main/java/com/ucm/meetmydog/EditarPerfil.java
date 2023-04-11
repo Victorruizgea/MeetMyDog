@@ -1,12 +1,17 @@
 package com.ucm.meetmydog;
 
+
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,66 +19,89 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class CrearPerfilActivity extends AppCompatActivity {
+import java.util.Map;
+
+public class EditarPerfil extends AppCompatActivity {
 
     private static final int GALLERY_REQUEST_CODE = 100;
     EditText nombrePerro;
     EditText descripcionPerro;
-    ImageView imagenPerfil;
-
     StorageReference mStorage;
     DatabaseReference mDatabase;
+    FirebaseAuth mAuth;
     String uri;
+    ImageView imageView;
 
     Button guardar;
-    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crearperfil);
-        mStorage = FirebaseStorage.getInstance().getReference();
-        nombrePerro=findViewById(R.id.nombrePerro);
-        descripcionPerro=findViewById(R.id.descripcionPerro);
+        setContentView(R.layout.activity_editar_perfil);
+
         mAuth=FirebaseAuth.getInstance();
-        imagenPerfil=findViewById(R.id.imagenPerfil);
-        imagenPerfil.setOnClickListener(new View.OnClickListener() {
+        String id = mAuth.getCurrentUser().getUid();
+        nombrePerro=findViewById(R.id.nombrePerroEdit);
+        descripcionPerro=findViewById(R.id.descripcionPerroEdit);
+        imageView=findViewById(R.id.imagenPerfilEdit);
+        mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
+        mDatabase.child("user").child(id).child("perfil").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Map<String, Object> usuarioMap = (Map<String, Object>) snapshot.getValue();
+                nombrePerro.setText((String) usuarioMap.get("nombrePerro"));
+                descripcionPerro.setText((String) usuarioMap.get("descripcion"));
+                String imagenUri= (String) usuarioMap.get("imagenUri");
+                descargarImagen(imagenUri);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("EditarPerfil:", "Error al leer los datos de la base de datos", error.toException());
+
+            }
+        });
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onImageViewClicked(view);
             }
         });
 
-
-        guardar=findViewById(R.id.guardarPerfil);
+        guardar=findViewById(R.id.guardarPerfilEdit);
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                guardarPerfil();
+                guardarEditarPerfil();
             }
         });
 
+
+
     }
 
-    private void guardarPerfil() {
+    private void guardarEditarPerfil() {
         String nombre= String.valueOf(nombrePerro.getText());
         String descripcion= String.valueOf(descripcionPerro.getText());
         String id = mAuth.getCurrentUser().getUid();
         PerfilUsuario perfil=new PerfilUsuario(nombre,descripcion,uri);
-        mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         mDatabase.child("user").child(id).child("perfil").setValue(perfil).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Intent intent = new Intent(CrearPerfilActivity.this, InicialActivity.class);
+                Intent intent = new Intent(EditarPerfil.this, InicialActivity.class);
                 startActivity(intent);
             }
         });
@@ -94,14 +122,30 @@ public class CrearPerfilActivity extends AppCompatActivity {
             filepath.putFile(imagenUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(CrearPerfilActivity.this,"Imagen guardada correctamente",Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditarPerfil.this,"Imagen guardada correctamente",Toast.LENGTH_LONG).show();
                 }
             });
 
-            imagenPerfil.setImageURI(imagenUri);
+            imageView.setImageURI(imagenUri);
 
         }
     }
 
 
+    private void descargarImagen(String imagenUri) {
+        mStorage = FirebaseStorage.getInstance().getReference().child("imagenesPerfil/"+imagenUri);
+        mStorage.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                imageView.setImageBitmap(bitmap);
+                uri=imagenUri;
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w("EditarPerfil", "Error al descargar la imagen", e);
+            }
+        });
+    }
 }

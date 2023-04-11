@@ -61,7 +61,6 @@ public class RegistroActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Intent intent = new Intent(RegistroActivity.this, TerminosCondicionesActivity.class);
-                            intent.putExtra("usuario",nombre);
                             startActivity(intent);
                         }
                     });

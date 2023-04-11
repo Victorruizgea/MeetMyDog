@@ -56,7 +56,6 @@ public class TerminosCondicionesActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Intent intent = new Intent(TerminosCondicionesActivity.this, CrearPerfilActivity.class);
-                    intent.putExtra("nombre",nombreUsuario);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
