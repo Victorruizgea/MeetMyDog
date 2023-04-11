@@ -26,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
           }
       });
 
-        iniciarSesionBoton.setOnClickListener(v -> setContentView(R.layout.iniciar_sesion));
+        iniciarSesionBoton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent (MainActivity.this, InicioSesionActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }
