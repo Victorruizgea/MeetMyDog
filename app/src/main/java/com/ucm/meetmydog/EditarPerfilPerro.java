@@ -34,18 +34,21 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.Map;
 
-public class EditarPerfil extends AppCompatActivity {
+public class EditarPerfilPerro extends AppCompatActivity {
 
     private static final int GALLERY_REQUEST_CODE = 100;
-    EditText nombrePerro;
-    EditText descripcionPerro;
-    StorageReference mStorage;
-    DatabaseReference mDatabase;
-    FirebaseAuth mAuth;
-    String uri;
-    ImageView imageView;
+    private EditText nombrePerro;
+    private EditText descripcionPerro;
+    private EditText pesoPerro;
+    private EditText edadPerro;
+    private EditText razaPerro;
+    private StorageReference mStorage;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+    private String uri;
+    private ImageView imageView;
 
-    Button guardar;
+    private Button guardar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,9 @@ public class EditarPerfil extends AppCompatActivity {
         String id = mAuth.getCurrentUser().getUid();
         nombrePerro=findViewById(R.id.nombrePerroEdit);
         descripcionPerro=findViewById(R.id.descripcionPerroEdit);
+        pesoPerro=findViewById(R.id.pesoPerroEdit);
+        edadPerro=findViewById(R.id.edadPerroEdit);
+        razaPerro=findViewById(R.id.razaPerroEdit);
         imageView=findViewById(R.id.imagenPerfilEdit);
         mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         mDatabase.child("user").child(id).child("perfil").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -64,6 +70,9 @@ public class EditarPerfil extends AppCompatActivity {
                 Map<String, Object> usuarioMap = (Map<String, Object>) snapshot.getValue();
                 nombrePerro.setText((String) usuarioMap.get("nombrePerro"));
                 descripcionPerro.setText((String) usuarioMap.get("descripcion"));
+                pesoPerro.setText((String) usuarioMap.get("peso"));
+                razaPerro.setText((String) usuarioMap.get("raza"));
+                edadPerro.setText((String) usuarioMap.get("edad"));
                 String imagenUri= (String) usuarioMap.get("imagenUri");
                 descargarImagen(imagenUri);
             }
@@ -96,12 +105,17 @@ public class EditarPerfil extends AppCompatActivity {
     private void guardarEditarPerfil() {
         String nombre= String.valueOf(nombrePerro.getText());
         String descripcion= String.valueOf(descripcionPerro.getText());
+        int peso= Integer.parseInt(String.valueOf(pesoPerro.getText()));
+        int edad= Integer.parseInt(String.valueOf(edadPerro.getText()));
+        String raza= String.valueOf(razaPerro.getText());
+
+
         String id = mAuth.getCurrentUser().getUid();
-        PerfilUsuario perfil=new PerfilUsuario(nombre,descripcion,uri);
+        PerfilUsuario perfil=new PerfilUsuario(nombre,descripcion,uri,peso,edad,raza);
         mDatabase.child("user").child(id).child("perfil").setValue(perfil).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Intent intent = new Intent(EditarPerfil.this, InicialActivity.class);
+                Intent intent = new Intent(EditarPerfilPerro.this, InicialActivity.class);
                 startActivity(intent);
             }
         });
@@ -122,7 +136,7 @@ public class EditarPerfil extends AppCompatActivity {
             filepath.putFile(imagenUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(EditarPerfil.this,"Imagen guardada correctamente",Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditarPerfilPerro.this,"Imagen guardada correctamente",Toast.LENGTH_LONG).show();
                 }
             });
 

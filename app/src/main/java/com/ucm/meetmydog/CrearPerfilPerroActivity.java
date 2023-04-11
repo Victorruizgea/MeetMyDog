@@ -23,19 +23,22 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class CrearPerfilActivity extends AppCompatActivity {
+public class CrearPerfilPerroActivity extends AppCompatActivity {
 
     private static final int GALLERY_REQUEST_CODE = 100;
-    EditText nombrePerro;
-    EditText descripcionPerro;
-    ImageView imagenPerfil;
+    private EditText nombrePerro;
+    private EditText descripcionPerro;
+    private EditText pesoPerro;
+    private EditText edadPerro;
+    private EditText razaPerro;
+    private ImageView imagenPerfil;
 
-    StorageReference mStorage;
-    DatabaseReference mDatabase;
-    String uri;
+    private StorageReference mStorage;
+    private DatabaseReference mDatabase;
+    private String uri;
 
-    Button guardar;
-    FirebaseAuth mAuth;
+    private Button guardar;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +47,12 @@ public class CrearPerfilActivity extends AppCompatActivity {
         mStorage = FirebaseStorage.getInstance().getReference();
         nombrePerro=findViewById(R.id.nombrePerro);
         descripcionPerro=findViewById(R.id.descripcionPerro);
+        pesoPerro=findViewById(R.id.pesoPerro);
+        edadPerro=findViewById(R.id.edadPerro);
+        razaPerro=findViewById(R.id.razaPerro);
         mAuth=FirebaseAuth.getInstance();
         imagenPerfil=findViewById(R.id.imagenPerfil);
+
         imagenPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,13 +74,18 @@ public class CrearPerfilActivity extends AppCompatActivity {
     private void guardarPerfil() {
         String nombre= String.valueOf(nombrePerro.getText());
         String descripcion= String.valueOf(descripcionPerro.getText());
+        int peso= Integer.parseInt(String.valueOf(pesoPerro.getText()));
+        int edad= Integer.parseInt(String.valueOf(edadPerro.getText()));
+        String raza= String.valueOf(razaPerro.getText());
+
+
         String id = mAuth.getCurrentUser().getUid();
-        PerfilUsuario perfil=new PerfilUsuario(nombre,descripcion,uri);
+        PerfilUsuario perfil=new PerfilUsuario(nombre,descripcion,uri,peso,edad,raza);
         mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         mDatabase.child("user").child(id).child("perfil").setValue(perfil).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Intent intent = new Intent(CrearPerfilActivity.this, InicialActivity.class);
+                Intent intent = new Intent(CrearPerfilPerroActivity.this, InicialActivity.class);
                 startActivity(intent);
             }
         });
@@ -94,7 +106,7 @@ public class CrearPerfilActivity extends AppCompatActivity {
             filepath.putFile(imagenUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(CrearPerfilActivity.this,"Imagen guardada correctamente",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CrearPerfilPerroActivity.this,"Imagen guardada correctamente",Toast.LENGTH_LONG).show();
                 }
             });
 
