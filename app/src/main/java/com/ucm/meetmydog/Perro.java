@@ -2,29 +2,29 @@ package com.ucm.meetmydog;
 
 import java.io.Serializable;
 
-public class PerfilUsuario implements Serializable {
-    private String nombrePerro;
+public class Perro implements Serializable {
+    private String nombre;
     private String imagenUri;
     private String descripcion;
     private int edad;
     private int peso;
     private String raza;
 
-    public PerfilUsuario(String nombrePerro,String descripcion,String imagenUri,int edad,int peso,String raza){
-        this.nombrePerro=nombrePerro;
-        this.descripcion=descripcion;
+    public Perro(String nombre,String imagenUri,String descripcion,int edad,int peso,String raza){
+        this.nombre=nombre;
         this.imagenUri=imagenUri;
+        this.descripcion=descripcion;
         this.edad=edad;
         this.peso=peso;
         this.raza=raza;
     }
 
-    public String getNombrePerro() {
-        return nombrePerro;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombrePerro(String nombrePerro) {
-        this.nombrePerro = nombrePerro;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getImagenUri() {

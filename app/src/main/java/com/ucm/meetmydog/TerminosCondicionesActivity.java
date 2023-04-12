@@ -54,7 +54,7 @@ public class TerminosCondicionesActivity extends AppCompatActivity {
             mDatabase.child("user").child(Uid).child("Term").setValue("1").addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    Intent intent = new Intent(TerminosCondicionesActivity.this, CrearPerfilPerroActivity.class);
+                    Intent intent = new Intent(TerminosCondicionesActivity.this, imagenUsuarioActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }

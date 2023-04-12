@@ -1,16 +1,19 @@
 package com.ucm.meetmydog;
 
 
+import java.util.List;
 
 public class Usuario {
-
 
     private String nombre;
 
     private String email;
     private String password;
 
+    private String imagenUri;
 
+    private List<Perro> listaPerros;
+    private List<String> amigos;
 
     public Usuario(String nombre,String email,String password){
         this.nombre=nombre;
@@ -39,6 +42,12 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    public String getImagenUri(){
+        return imagenUri;
+    }
+    public void setImagenUri(String imagenUri){
+        this.imagenUri=imagenUri;
     }
 
 

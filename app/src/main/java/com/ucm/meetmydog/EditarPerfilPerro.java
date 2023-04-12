@@ -111,8 +111,8 @@ public class EditarPerfilPerro extends AppCompatActivity {
 
 
         String id = mAuth.getCurrentUser().getUid();
-        PerfilUsuario perfil=new PerfilUsuario(nombre,descripcion,uri,peso,edad,raza);
-        mDatabase.child("user").child(id).child("perfil").setValue(perfil).addOnCompleteListener(new OnCompleteListener<Void>() {
+        Perro perro=new Perro(nombre,descripcion,uri,peso,edad,raza);
+        mDatabase.child("user").child(id).child("perros").child(nombre).setValue(perro).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Intent intent = new Intent(EditarPerfilPerro.this, InicialActivity.class);
