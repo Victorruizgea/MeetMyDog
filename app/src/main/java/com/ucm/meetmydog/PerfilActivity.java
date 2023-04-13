@@ -94,7 +94,7 @@ public class PerfilActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        })
+        });
 
         perros= (List<Perro>) usuarioMap.get("perros");
         for (Perro perro : perros) {
