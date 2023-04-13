@@ -9,6 +9,7 @@ public class Perro implements Serializable {
     private int edad;
     private int peso;
     private String raza;
+    //selector de personalidad
 
     public Perro(String nombre,String imagenUri,String descripcion,int edad,int peso,String raza){
         this.nombre=nombre;

@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,6 +24,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
 public class imagenUsuarioActivity extends AppCompatActivity {
@@ -31,7 +34,7 @@ public class imagenUsuarioActivity extends AppCompatActivity {
     private ImageView imagenView;
 
     private Boolean imagen_cargada=false;
-    private String uri;
+    private String uri=null;
 
     private StorageReference mStorage;
     private DatabaseReference mDatabase;
@@ -57,12 +60,7 @@ public class imagenUsuarioActivity extends AppCompatActivity {
         guardarImagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(imagen_cargada){
-                    guardar();
-
-                }else{
-                    Toast.makeText(imagenUsuarioActivity.this,"No se ha cargado ninguna imagen",Toast.LENGTH_LONG);
-                }
+               guardar();
             }
         });
 
