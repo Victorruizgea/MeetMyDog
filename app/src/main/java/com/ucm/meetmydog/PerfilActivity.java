@@ -85,7 +85,7 @@ public class PerfilActivity extends AppCompatActivity {
                     contenedorPerros.addView(cardView);
 
                     // Agrega el usuario a la lista de usuarios
-                    listaUsuarios.add(usuario);
+                    //listaUsuarios.add(usuario);
                 }
 
             }
@@ -96,14 +96,12 @@ public class PerfilActivity extends AppCompatActivity {
             }
         });
 
-        perros= (List<Perro>) usuarioMap.get("perros");
-        for (Perro perro : perros) {
+       // perros= (List<Perro>) usuarioMap.get("perros");
 
-        }
 
     }
 
-    private Bitmap descargarImagen(String imagenUri) {
+    private void descargarImagen(String imagenUri) {
 
         mStorage = FirebaseStorage.getInstance().getReference().child( imagenUri);
         mStorage.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
