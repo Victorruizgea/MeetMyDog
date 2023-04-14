@@ -17,7 +17,7 @@ public class InicialActivity extends AppCompatActivity {
         editarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(InicialActivity.this, PerfilActivity.class);
+                Intent intent=new Intent(InicialActivity.this, PerfilUsuarioActivity.class);
                 startActivity(intent);
             }
         });

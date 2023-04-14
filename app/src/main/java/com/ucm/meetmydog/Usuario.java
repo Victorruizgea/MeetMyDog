@@ -20,6 +20,12 @@ public class Usuario {
         this.email=email;
         this.password=password;
     }
+    public Usuario(String nombre,String email,String password,String imagenUri){
+        this.nombre=nombre;
+        this.email=email;
+        this.password=password;
+        this.imagenUri=imagenUri;
+    }
 
     public String getNombre() {
         return nombre;

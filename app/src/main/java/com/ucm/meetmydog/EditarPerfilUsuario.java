@@ -1,7 +1,5 @@
 package com.ucm.meetmydog;
 
-
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,54 +30,44 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
 import java.util.Map;
 
-public class EditarPerfilPerro extends AppCompatActivity {
-
+public class EditarPerfilUsuario extends AppCompatActivity {
     private static final int GALLERY_REQUEST_CODE = 100;
-    private EditText nombrePerro;
-    private EditText descripcionPerro;
-    private EditText pesoPerro;
-    private EditText edadPerro;
-    private EditText razaPerro;
+    private EditText nombreUsuario;
+    private ImageView imageView;
+    private String uri;
     private StorageReference mStorage;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
-    private String uri;
-    private ImageView imageView;
 
     private Button guardar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editar_perfil_perro);
-
+        setContentView(R.layout.activity_editar_perfil_usuario);
         mAuth=FirebaseAuth.getInstance();
         String id = mAuth.getCurrentUser().getUid();
-        nombrePerro=findViewById(R.id.nombrePerroEdit);
-        descripcionPerro=findViewById(R.id.descripcionPerroEdit);
-        pesoPerro=findViewById(R.id.pesoPerroEdit);
-        edadPerro=findViewById(R.id.edadPerroEdit);
-        razaPerro=findViewById(R.id.razaPerroEdit);
-        imageView=findViewById(R.id.imagenPerfilEdit);
+        nombreUsuario=findViewById(R.id.nombreUsuarioEdit);
+        imageView=findViewById(R.id.imagenUsuarioEdit);
+        guardar=findViewById(R.id.guardarUsuarioEdit);
         mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
-        mDatabase.child("user").child(id).child("perfil").addListenerForSingleValueEvent(new ValueEventListener() {
+        mStorage = FirebaseStorage.getInstance().getReference();
+        mDatabase.child("user").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Map<String, Object> usuarioMap = (Map<String, Object>) snapshot.getValue();
-                nombrePerro.setText((String) usuarioMap.get("nombrePerro"));
-                descripcionPerro.setText((String) usuarioMap.get("descripcion"));
-                pesoPerro.setText((String) usuarioMap.get("peso"));
-                razaPerro.setText((String) usuarioMap.get("raza"));
-                edadPerro.setText((String) usuarioMap.get("edad"));
-                String imagenUri= (String) usuarioMap.get("imagenUri");
+                nombreUsuario.setText((CharSequence) usuarioMap.get("nombre"));
+
+                String imagenUri= (String) usuarioMap.get("imagen");
                 descargarImagen(imagenUri);
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.w("EditarPerfil:", "Error al leer los datos de la base de datos", error.toException());
 
             }
         });
@@ -89,8 +77,6 @@ public class EditarPerfilPerro extends AppCompatActivity {
                 onImageViewClicked(view);
             }
         });
-
-        guardar=findViewById(R.id.guardarPerfilEdit);
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,26 +87,24 @@ public class EditarPerfilPerro extends AppCompatActivity {
 
 
     }
-
     private void guardarEditarPerfil() {
-        String nombre= String.valueOf(nombrePerro.getText());
-        String descripcion= String.valueOf(descripcionPerro.getText());
-        int peso= Integer.parseInt(String.valueOf(pesoPerro.getText()));
-        int edad= Integer.parseInt(String.valueOf(edadPerro.getText()));
-        String raza= String.valueOf(razaPerro.getText());
-
+        String nombre= String.valueOf(nombreUsuario.getText());
 
         String id = mAuth.getCurrentUser().getUid();
-        Perro perro=new Perro(nombre,uri,descripcion,peso,edad,raza);
-        mDatabase.child("user").child(id).child("perros").child(nombre).setValue(perro).addOnCompleteListener(new OnCompleteListener<Void>() {
+        //Usuario usuario=new Usuario(nombre,correo,password,uri);
+        DatabaseReference userRef= mDatabase.child("user").child(id);
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("nombre", nombre);
+        updates.put("imagen", uri);
+        userRef.updateChildren(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Intent intent = new Intent(EditarPerfilPerro.this, InicialActivity.class);
+                Intent intent = new Intent(EditarPerfilUsuario.this, PerfilUsuarioActivity.class);
                 startActivity(intent);
             }
         });
-    }
 
+    }
     public void onImageViewClicked(View view) {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
@@ -132,11 +116,11 @@ public class EditarPerfilPerro extends AppCompatActivity {
         if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri imagenUri = data.getData();
             uri=imagenUri.getLastPathSegment();
-            StorageReference filepath = mStorage.child("imagenesPerfil").child(uri);
+            StorageReference filepath = mStorage.child("imagenesUsuario").child(uri);
             filepath.putFile(imagenUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(EditarPerfilPerro.this,"Imagen guardada correctamente",Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditarPerfilUsuario.this,"Imagen guardada correctamente",Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -144,11 +128,8 @@ public class EditarPerfilPerro extends AppCompatActivity {
 
         }
     }
-
-
     private void descargarImagen(String imagenUri) {
-        mStorage = FirebaseStorage.getInstance().getReference().child("imagenesPerfil/"+imagenUri);
-        mStorage.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        mStorage.child("imagenesUsuario/"+imagenUri).getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);

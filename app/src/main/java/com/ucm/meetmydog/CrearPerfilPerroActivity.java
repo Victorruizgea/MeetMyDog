@@ -80,7 +80,7 @@ public class CrearPerfilPerroActivity extends AppCompatActivity {
 
 
         String id = mAuth.getCurrentUser().getUid();
-        Perro perro=new Perro(nombre,descripcion,uri,peso,edad,raza);
+        Perro perro=new Perro(nombre,uri,descripcion,peso,edad,raza);
         mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         mDatabase.child("user").child(id).child("perros").child(nombre).setValue(perro).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
