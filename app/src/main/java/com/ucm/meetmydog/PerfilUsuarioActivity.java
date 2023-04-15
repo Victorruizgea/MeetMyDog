@@ -137,6 +137,15 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
                             });
                         }
                     });
+                    verPerfil.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent i = new Intent(PerfilUsuarioActivity.this, FichaPerroActivity.class);
+                            i.putExtra("datos",perro);
+                            startActivity(i);
+
+                        }
+                    });
 
                     // Configura el cardView aquí
                     contenedorPerros.addView(cardView);

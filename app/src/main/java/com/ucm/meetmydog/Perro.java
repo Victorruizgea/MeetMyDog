@@ -19,9 +19,7 @@ public class Perro implements Serializable {
         this.peso=peso;
         this.raza=raza;
     }
-    public Perro(){
 
-    }
 
     public String getNombre() {
         return nombre;
