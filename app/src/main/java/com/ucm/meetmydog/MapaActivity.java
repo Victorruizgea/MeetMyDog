@@ -35,7 +35,7 @@ import java.util.ArrayList;
 public class MapaActivity extends AppCompatActivity implements OnMapReadyCallback {
     GoogleMap mMap;
     SharedPreferences mPreference;
-    String[] parAux;
+    String[] parAux, perroAux;
     private Marker marcador;
     double usrlat=0.0;
     double usrlon=0.0;
@@ -60,9 +60,11 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
         String parameters = mPreference.getString("parameters", "");
+        String nombrePerros = mPreference.getString("perros", "");
         LatLng madrid;
-        if(!parameters.isEmpty()){
+        if(!parameters.isEmpty() && !nombrePerros.isEmpty()){
             parAux = parameters.split(",");
+            perroAux = parameters.split(",");
             miUbicacion();
         }
     }
@@ -109,28 +111,33 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void ActualizarPaseo(double lat, double lon) {
         auth = FirebaseAuth.getInstance();
         String idUser = auth.getCurrentUser().getUid();
-        mDatabase = FirebaseDatabase.getInstance("https://tfg01-aa25e-default-rtdb.europe-west1.firebasedatabase.app").getReference();
+        mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         if (peso == -1 && personalidad.isEmpty()) {
-            mDatabase.child("Users").child("padre").child(idUser).child("hijos").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        for (DataSnapshot ds : task.getResult().getChildren()) {
-                            if (ds.getKey().equals("peso"))
-                                peso = ds.getValue(Integer.class);
-                            if (ds.getKey().equals("personalidad"))
-                                personalidad = ds.getValue(String.class);
+            for(int x = 0; x < perroAux.length; x++){
+                int finalX = x;
+                mDatabase.child("user").child(idUser).child("perros").child(perroAux[x]).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DataSnapshot ds : task.getResult().getChildren()) {
+                                if (ds.getKey().equals("peso"))
+                                    peso = ds.getValue(Integer.class);
+                                if (ds.getKey().equals("personalidad"))
+                                    personalidad = ds.getValue(String.class);
+                            }
+                            paseo = new Paseo(lat,lon,parAux[0], parAux[1], peso, personalidad);
+                            mDatabase.child("paseo").child(idUser + "," +perroAux[finalX]).setValue(paseo);
                         }
-                        paseo = new Paseo(lat,lon,parAux[0], parAux[1], peso, personalidad);
-                        mDatabase.child("Users").child("hijo").child(idUser).child("location").child ("0").child("com").setValue(paseo);
                     }
-                }
-            });
+                });
+            }
         }
         else{
             //Actualizar tiempo
-            paseo = new Paseo(lat,lon,parAux[0], parAux[1], peso, personalidad);
-            mDatabase.child("Users").child("hijo").child(idUser).child("location").child ("0").child("com").setValue(paseo);
+            for(int x = 0; x < perroAux.length; x++) {
+                paseo = new Paseo(lat, lon, parAux[0], parAux[1], peso, personalidad);
+                mDatabase.child("paseo").child(idUser + "," + perroAux[x]).setValue(paseo);
+            }
         }
     }
 
@@ -174,7 +181,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ArrayList<String> getPerros(String[] parametros){
         auth = FirebaseAuth.getInstance();
         String idUser = auth.getCurrentUser().getUid();
-        mDatabase = FirebaseDatabase.getInstance("https://tfg01-aa25e-default-rtdb.europe-west1.firebasedatabase.app").getReference();
+        mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
 
         ArrayList<String> perros = new ArrayList<>();
         Integer pesoMin = Integer.valueOf(parametros[2]);
@@ -182,17 +189,18 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
         String Mipersonalidad = parametros[4];
 
         final int[] peso = new int[1];
+        final String[] distancia = new String[1];
         final Double[] lat = new Double[1];
         final Double[] lon = new Double[1];
         final String[] personalidad = new String[1];
 
-        mDatabase.child("Users").child("padre").child(idUser).child("hijos").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child("paseo").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()) {
                     for (DataSnapshot ds : task.getResult().getChildren()) {
                         String key = ds.getKey();
-                        mDatabase.child("Users").child("padre").child(idUser).child("hijos").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        mDatabase.child("paseo").child(key).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DataSnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -205,8 +213,11 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                                             lat[0] = ds.getValue(Double.class);
                                         if (ds.getKey().equals("lon"))
                                             lon[0] = ds.getValue(Double.class);
+                                        if (ds.getKey().equals("distancia"))
+                                            distancia[0] = ds.getValue(String.class);
                                     }
-                                    if (pesoMin <= peso[0] && peso[0] <= pesoMax && personalidad[0].equals(Mipersonalidad)) {
+                                    if (pesoMin <= peso[0] && peso[0] <= pesoMax && personalidad[0].equals(Mipersonalidad) && distanciaPaseo(usrlat, usrlon, lat[0], lon[0], Integer.valueOf(distancia[0])
+                                            , Integer.valueOf(parAux[0]))) {
                                         perros.add(lat[0] + "");
                                         perros.add(lon[0] + "");
                                     }
@@ -218,5 +229,19 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
         return perros;
+    }
+
+    private boolean distanciaPaseo(Double lat1, Double long1, Double lat2, Double long2, int distanciaExt, int distanciaUsr) {
+        int R = 6371;
+        lat1 = Math.toRadians(lat1);
+        long1 = Math.toRadians(long1);
+        lat2 = Math.toRadians(lat2);
+        long2 = Math.toRadians(long2);
+        double delta_lat = lat2 - lat1;
+        double delta_long = long2 - long1;
+        double a = Math.sin(delta_lat / 2) * 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(delta_long / 2) * 2;
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distancia = R * c;
+        return distancia < (distanciaUsr + distanciaExt);
     }
 }
