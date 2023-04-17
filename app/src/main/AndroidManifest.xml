@@ -17,6 +17,9 @@
         android:theme="@style/Theme.MeetMyDog"
         tools:targetApi="31">
         <activity
+            android:name=".SeleccionPerrosActivity"
+            android:exported="false" />
+        <activity
             android:name=".FichaPerroActivity"
             android:exported="false" />
         <activity
