@@ -8,11 +8,12 @@
 
     <Button
         android:id="@+id/registrarse"
-        android:layout_width="158dp"
+        android:layout_width="wrap_content"
         android:layout_height="52dp"
-        android:layout_marginStart="130dp"
-        android:layout_marginEnd="123dp"
+        android:layout_marginEnd="146dp"
         android:layout_marginBottom="193dp"
+        android:backgroundTint="#4553D2"
+
         android:text="Registrarse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,11 +48,11 @@
 
     <Button
         android:id="@+id/iniciarSesion"
-        android:layout_width="158dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="130dp"
-        android:layout_marginEnd="123dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="39dp"
+        android:layout_marginRight="140dp"
+        android:backgroundTint="#4553D2"
         android:text="Iniciar sesión"
         app:layout_constraintBottom_toTopOf="@+id/registrarse"
         app:layout_constraintEnd_toEndOf="parent"
