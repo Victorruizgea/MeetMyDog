@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -35,6 +36,7 @@ public class SeleccionPerrosActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
+    SharedPreferences mPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class SeleccionPerrosActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         String id = mAuth.getCurrentUser().getUid();
         contenedorPerros=findViewById(R.id.contenedorPerrosSeleccionar);
+        mPreference = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
 
         mDatabase.child("user").child(id).child("perros").addValueEventListener(new ValueEventListener() {
             @Override
@@ -69,7 +72,10 @@ public class SeleccionPerrosActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             Intent i= new Intent(SeleccionPerrosActivity.this,FiltroMapaActivity.class);
-                            i.putExtra("perro",perro);
+                            SharedPreferences.Editor edit = mPreference.edit();
+                            String Parameters = perro.getNombre();
+                            edit.putString("perros", Parameters);
+                            edit.apply();
                             startActivity(i);
 
                         }

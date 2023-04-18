@@ -59,7 +59,7 @@ public class FiltroMapaActivity extends AppCompatActivity {
             @Override
             public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
                 tiempoNum = (int) value;
-                display.setText("Vas a pasear durante "+ distanciaNum + " minutos");
+                display.setText("Vas a pasear durante "+ tiempoNum + " minutos");
                 //image.setImageURI();
             }
         });
