@@ -71,7 +71,7 @@
         app:abb_indicatorHeight="4dp"
         app:abb_indicatorLocation="top"
         app:abb_selectedIndex="1"
-        app:abb_selectedTabType="icon"
+        app:abb_selectedTabType="text"
         app:abb_tabAnimation="slide"
         app:abb_tabAnimationSelected="slide"
         app:abb_tabColor="@color/white"
