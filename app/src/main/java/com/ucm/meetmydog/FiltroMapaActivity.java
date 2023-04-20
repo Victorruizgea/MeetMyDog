@@ -16,13 +16,13 @@ import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.slider.Slider;
 
 public class FiltroMapaActivity extends AppCompatActivity {
-    Slider distancia, tiempo, personalidad;
+    Slider distancia, tiempo;
     RangeSlider peso;
     CheckBox nobusquedaperros;
     Button comenzarPaseo;
     TextView display;
     ImageView image;
-    int distanciaNum, tiempoNum, personalidadNum, pesoMin, pesoMax;
+    int distanciaNum, tiempoNum, pesoMin, pesoMax;
 
     SharedPreferences mPref;
 
@@ -34,7 +34,6 @@ public class FiltroMapaActivity extends AppCompatActivity {
 
         distancia = findViewById(R.id.sliderDistancia);
         tiempo = findViewById(R.id.sliderTiempo);
-        personalidad = findViewById(R.id.sliderPersonalidad);
         peso = findViewById(R.id.sliderTamañoPerro);
         nobusquedaperros = findViewById(R.id.checkboxNoBusquedaPerros);
         comenzarPaseo = findViewById(R.id.bottonPasear);
@@ -43,7 +42,6 @@ public class FiltroMapaActivity extends AppCompatActivity {
 
         distanciaNum = 0;
         tiempoNum = 0;
-        personalidadNum = 0;
         pesoMin = 0;
         pesoMax = 0;
         distancia.addOnChangeListener(new Slider.OnChangeListener() {
@@ -61,25 +59,6 @@ public class FiltroMapaActivity extends AppCompatActivity {
                 tiempoNum = (int) value;
                 display.setText("Vas a pasear durante "+ tiempoNum + " minutos");
                 //image.setImageURI();
-            }
-        });
-
-        personalidad.addOnChangeListener(new Slider.OnChangeListener() {
-            @Override
-            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-                personalidadNum = (int) value;
-                if(personalidadNum == 1.0){
-                    display.setText("Te encontrarás con perros solitarios");
-                    //image.setImageURI();
-                }
-                if(personalidadNum == 2.0){
-                    display.setText("Te encontrarás con perros juguetones");
-                    //image.setImageURI();
-                }
-                if(personalidadNum == 3.0){
-                    display.setText("Te encontrarás con perros muy juguetones");
-                    //image.setImageURI();
-                }
             }
         });
 
@@ -104,10 +83,10 @@ public class FiltroMapaActivity extends AppCompatActivity {
         SharedPreferences.Editor edit = mPref.edit();
         String Parameters = "";
         if(nobusquedaperros.isChecked()){
-            Parameters += "0,0,0,0,0";
+            Parameters += "0,0,0,0";
         }
         else{
-            Parameters += distanciaNum +"," + tiempoNum + "," + pesoMin + "," + pesoMax + "," + personalidadNum;
+            Parameters += distanciaNum +"," + tiempoNum + "," + pesoMin + "," + pesoMax;
         }
         edit.putString("parameters", Parameters);
         edit.apply();

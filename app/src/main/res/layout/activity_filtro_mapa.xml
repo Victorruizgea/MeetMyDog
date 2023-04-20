@@ -128,45 +128,6 @@
             />
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Personalidad"
-            android:textStyle="bold"
-            android:textSize="25dp"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="solitariao"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="240dp"
-                android:text="muy amigable"
-
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <com.google.android.material.slider.Slider
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/sliderPersonalidad"
-            android:valueFrom="1"
-            android:valueTo="3"
-            android:stepSize="1"/>
-    </LinearLayout>
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

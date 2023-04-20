@@ -44,7 +44,6 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
     FirebaseAuth auth;
 
     double peso = -1;
-    String personalidad = "";
     Paseo paseo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +63,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng madrid;
         if(!parameters.isEmpty() && !nombrePerros.isEmpty()){
             parAux = parameters.split(",");
-            perroAux = parameters.split(",");
+            perroAux = nombrePerros.split(",");
             miUbicacion();
         }
     }
@@ -112,7 +111,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
         auth = FirebaseAuth.getInstance();
         String idUser = auth.getCurrentUser().getUid();
         mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
-        if (peso == -1 && personalidad.isEmpty()) {
+        if (peso == -1) {
             for(int x = 0; x < perroAux.length; x++){
                 int finalX = x;
                 mDatabase.child("user").child(idUser).child("perros").child(perroAux[x]).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -122,11 +121,9 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                             for (DataSnapshot ds : task.getResult().getChildren()) {
                                 if (ds.getKey().equals("peso"))
                                     peso = ds.getValue(Integer.class);
-                                if (ds.getKey().equals("personalidad"))
-                                    personalidad = ds.getValue(String.class);
                             }
-                            paseo = new Paseo(lat,lon,parAux[0], parAux[1], peso, personalidad);
-                            mDatabase.child("paseo").child(idUser + "," +perroAux[finalX]).setValue(paseo);
+                            String result = Paseo.BadString(lat,lon,parAux[0], parAux[1], peso);
+                            mDatabase.child("user").child("paseo").child(idUser + "," +perroAux[finalX]).setValue(result);
                         }
                     }
                 });
@@ -135,8 +132,8 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
         else{
             //Actualizar tiempo
             for(int x = 0; x < perroAux.length; x++) {
-                paseo = new Paseo(lat, lon, parAux[0], parAux[1], peso, personalidad);
-                mDatabase.child("paseo").child(idUser + "," + perroAux[x]).setValue(paseo);
+                String result = Paseo.BadString(lat, lon, parAux[0], parAux[1], peso);
+                mDatabase.child("user").child("paseo").child(idUser + "," + perroAux[x]).setValue(result);
             }
         }
     }
@@ -185,42 +182,26 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
         mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
 
         ArrayList<String> perros = new ArrayList<>();
-        Integer pesoMin = Integer.valueOf(parametros[2]);
-        Integer pesoMax = Integer.valueOf(parametros[3]);
-        String Mipersonalidad = parametros[4];
+        Double pesoMin = Double.valueOf(parametros[2]);
+        Double pesoMax = Double.valueOf(parametros[3]);
 
-        final int[] peso = new int[1];
-        final String[] distancia = new String[1];
-        final Double[] lat = new Double[1];
-        final Double[] lon = new Double[1];
-        final String[] personalidad = new String[1];
 
-        mDatabase.child("paseo").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child("user").child("paseo").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()) {
                     for (DataSnapshot ds : task.getResult().getChildren()) {
                         String key = ds.getKey();
-                        mDatabase.child("paseo").child(key).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        mDatabase.child("user").child("paseo").child(key).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DataSnapshot> task) {
                                 if (task.isSuccessful()) {
-                                    for (DataSnapshot ds : task.getResult().getChildren()) {
-                                        if (ds.getKey().equals("peso"))
-                                            peso[0] = ds.getValue(Integer.class);
-                                        if (ds.getKey().equals("personalidad"))
-                                            personalidad[0] = ds.getValue(String.class);
-                                        if (ds.getKey().equals("lat"))
-                                            lat[0] = ds.getValue(Double.class);
-                                        if (ds.getKey().equals("lon"))
-                                            lon[0] = ds.getValue(Double.class);
-                                        if (ds.getKey().equals("distancia"))
-                                            distancia[0] = ds.getValue(String.class);
-                                    }
-                                    if (pesoMin <= peso[0] && peso[0] <= pesoMax && personalidad[0].equals(Mipersonalidad) && distanciaPaseo(usrlat, usrlon, lat[0], lon[0], Integer.valueOf(distancia[0])
+                                    String result = task.getResult().getValue(String.class);
+                                    String [] resultAux = result.split(" ");
+                                    if (pesoMin <= Double.valueOf(resultAux[4]) && Double.valueOf(resultAux[4]) <= pesoMax && distanciaPaseo(usrlat, usrlon, Double.valueOf(resultAux[0]), Double.valueOf(resultAux[1]), Integer.valueOf(resultAux[2])
                                             , Integer.valueOf(parAux[0]))) {
-                                        perros.add(lat[0] + "");
-                                        perros.add(lon[0] + "");
+                                        perros.add(resultAux[0]);
+                                        perros.add(resultAux[1]);
                                     }
                                 }
                             }
