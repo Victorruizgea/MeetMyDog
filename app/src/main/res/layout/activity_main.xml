@@ -36,7 +36,7 @@
         android:layout_height="36dp"
         android:layout_marginBottom="420dp"
         android:text="Meet My Dog"
-        android:fontFamily="@font/GOODDC__"
+        android:fontFamily="@font/gooddc"
         android:textAlignment="center"
         android:textSize="35sp"
         android:textColor="@color/white"

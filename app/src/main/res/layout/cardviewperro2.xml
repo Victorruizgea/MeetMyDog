@@ -24,6 +24,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="180dp"
             android:scaleType="centerCrop"
+            android:src="@drawable/img_place_holder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
