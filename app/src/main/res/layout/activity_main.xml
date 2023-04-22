@@ -10,31 +10,29 @@
         android:id="@+id/registrarse"
         android:layout_width="wrap_content"
         android:layout_height="52dp"
-        android:layout_marginEnd="146dp"
-        android:layout_marginBottom="193dp"
+        android:layout_marginBottom="196dp"
         android:backgroundTint="#4553D2"
 
         android:text="Registrarse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="169dp"
-        android:layout_height="168dp"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:src="@drawable/ic_launcher_2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.104"
-        app:srcCompat="@android:mipmap/sym_def_app_icon" />
+        app:layout_constraintVertical_bias="0.104" />
 
     <TextView
         android:id="@+id/titulo"
-        android:layout_width="167dp"
-        android:layout_height="0dp"
+        android:layout_width="163dp"
+        android:layout_height="36dp"
         android:layout_marginBottom="420dp"
         android:fontFamily="sans-serif-black"
         android:text="Meet My Dog"
@@ -43,7 +41,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottom_bar"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.045" />
 
     <Button
@@ -51,16 +49,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="39dp"
-        android:layout_marginRight="140dp"
         android:backgroundTint="#4553D2"
         android:text="Iniciar sesión"
         app:layout_constraintBottom_toTopOf="@+id/registrarse"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titulo"
-        app:layout_constraintVertical_bias="1.0" />
-
+        app:layout_constraintVertical_bias="0.943" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,28 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".FichaPerroActivity">
 
-    <TextView
-        android:id="@+id/pesoFicha"
-        android:layout_width="88dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="107dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edadFicha" />
-
-    <TextView
-        android:id="@+id/edadFicha"
-        android:layout_width="88dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="107dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/razaFicha" />
-
     <ImageView
         android:id="@+id/imagenPerfilPerro"
         android:layout_width="224dp"
@@ -36,7 +14,7 @@
         android:layout_marginTop="65dp"
         android:layout_marginEnd="137dp"
         android:contentDescription="Cargar imagen"
-        android:src="@android:drawable/ic_menu_add"
+        android:src="@drawable/img_place_holder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -57,8 +35,8 @@
         android:id="@+id/textView8"
         android:layout_width="88dp"
         android:layout_height="42dp"
-        android:layout_marginStart="98dp"
-        android:layout_marginTop="29dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
         android:text="Raza:"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -66,23 +44,11 @@
         app:layout_constraintTop_toBottomOf="@+id/nombreFichaPerro" />
 
     <TextView
-        android:id="@+id/textView11"
-        android:layout_width="88dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="98dp"
-        android:layout_marginTop="18dp"
-        android:text="Peso:"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-    <TextView
         android:id="@+id/textView12"
         android:layout_width="88dp"
         android:layout_height="42dp"
-        android:layout_marginStart="98dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="12dp"
         android:text="Edad:"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -90,27 +56,65 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <TextView
-        android:id="@+id/razaFicha"
+        android:id="@+id/textView11"
         android:layout_width="88dp"
         android:layout_height="42dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="107dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="12dp"
+        android:text="Peso:"
         android:textAlignment="center"
         android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/pesoFicha"
+        android:layout_width="237dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="12dp"
+        android:textAlignment="viewStart"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toEndOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/edadFicha" />
+
+    <TextView
+        android:id="@+id/razaFicha"
+        android:layout_width="237dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="28dp"
+        android:textAlignment="viewStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toEndOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/nombreFichaPerro" />
 
     <TextView
+        android:id="@+id/edadFicha"
+        android:layout_width="237dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="28dp"
+        android:textAlignment="viewStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toEndOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/razaFicha" />
+
+    <TextView
         android:id="@+id/descripcionFicha"
-        android:layout_width="208dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="101dp"
-        android:layout_marginEnd="102dp"
-        android:layout_marginBottom="60dp"
+        android:layout_width="275dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="28dp"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
