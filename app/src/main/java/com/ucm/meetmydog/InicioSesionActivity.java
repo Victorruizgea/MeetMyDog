@@ -47,25 +47,27 @@ public class InicioSesionActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, passwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                String id = mAuth.getCurrentUser().getUid();
-                mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
-                mDatabase.child("user").child(id).child("Term").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        String Acceptance = task.getResult().getValue(String.class);
-                        //Comprobamos si los términos han sido aceptados, si han sido (1), el usuario va directamente a La Actividad INicial del Usuario,
-                        // si no, se le lleva de uevo a Terminos y condiciones para que los acepte
-                        if (Acceptance.equals("1")) {
-                            Intent intent = new Intent(InicioSesionActivity.this, InicialActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        } else {
-                            Intent intent = new Intent(InicioSesionActivity.this, TerminosCondicionesActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
+                if(task.isSuccessful()) {
+                    String id = mAuth.getCurrentUser().getUid();
+                    mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
+                    mDatabase.child("user").child(id).child("Term").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            String Acceptance = task.getResult().getValue(String.class);
+                            //Comprobamos si los términos han sido aceptados, si han sido (1), el usuario va directamente a La Actividad INicial del Usuario,
+                            // si no, se le lleva de uevo a Terminos y condiciones para que los acepte
+                            if (Acceptance.equals("1")) {
+                                Intent intent = new Intent(InicioSesionActivity.this, InicialActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            } else {
+                                Intent intent = new Intent(InicioSesionActivity.this, TerminosCondicionesActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
     }
