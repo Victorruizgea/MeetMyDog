@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo"
     tools:context=".RegistroActivity">
     <TextView
         android:id="@+id/textRegistro"
@@ -13,6 +14,7 @@
         android:fontFamily="sans-serif-black"
         android:text="Rellena los campos:"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
 
@@ -26,6 +28,7 @@
         android:layout_marginTop="79dp"
         android:ems="10"
         android:hint="Nombre de usuario"
+
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text=""

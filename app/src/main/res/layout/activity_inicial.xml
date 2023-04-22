@@ -14,7 +14,6 @@
         android:layout_marginEnd="170dp"
         android:backgroundTint="#4553D2"
         android:text="Ver perfil"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
