@@ -169,7 +169,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             ActualizarUbicacion(location);
-            locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 1200, 0, locationListener);
+            locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 60000, 20, locationListener);
         }
     }
     public void Mensaje(){
