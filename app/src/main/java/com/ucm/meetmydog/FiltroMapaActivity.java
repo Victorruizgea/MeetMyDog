@@ -1,5 +1,6 @@
 package com.ucm.meetmydog;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -59,6 +60,10 @@ public class FiltroMapaActivity extends AppCompatActivity {
                 tiempoNum = (int) value;
                 display.setText("Vas a pasear durante "+ tiempoNum + " minutos");
                 //image.setImageURI();
+                if (value < 30){
+                    image.setImageResource(@DrawableRes)
+                }
+                if (value > 30 && value < 90)
             }
         });
 

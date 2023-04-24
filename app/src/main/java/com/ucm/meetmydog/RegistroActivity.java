@@ -51,21 +51,23 @@ public class RegistroActivity extends AppCompatActivity {
     }
     private void registroUsuario(String nombre, String correo, String passw) {
         mAuth.createUserWithEmailAndPassword(correo,passw).addOnCompleteListener(task -> {
-            String id = mAuth.getCurrentUser().getUid();
-            Usuario user = new Usuario(nombre, correo, passw);
-            mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
-            mDatabase.child("user").child(id).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    mDatabase.child("user").child(id).child("Term").setValue("0").addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Intent intent = new Intent(RegistroActivity.this, TerminosCondicionesActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-                }
-            });
+            if(task.isSuccessful()) {
+                String id = mAuth.getCurrentUser().getUid();
+                Usuario user = new Usuario(nombre, correo, passw);
+                mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
+                mDatabase.child("user").child(id).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        mDatabase.child("user").child(id).child("Term").setValue("0").addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Intent intent = new Intent(RegistroActivity.this, TerminosCondicionesActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                });
+            }
         });
     }
 }

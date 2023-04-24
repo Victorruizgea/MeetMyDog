@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -43,6 +44,8 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
+    SharedPreferences mPreference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,7 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         contenedorPerros=findViewById(R.id.contenedorPerros);
         editarPerfilUsuario=findViewById(R.id.editarPerfilUsuario);
         anadirPerro=findViewById(R.id.anadirPerroBoton);
+        mPreference = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
         cargarDatosUsuario();
         editarPerfilUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +117,7 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
                     TextView nombreCard=   cardView.findViewById(R.id.nombrePerroCard);
                     Button verPerfil= cardView.findViewById(R.id.verPerfil);
                     Button eliminar= cardView.findViewById(R.id.eliminar);
+                    Button pasear = cardView.findViewById(R.id.pasear);
                     nombreCard.setText(perro.getNombre());
                     String imagenUri=perro.getImagenUri();
                     if(imagenUri==null){
@@ -144,6 +149,18 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
                             i.putExtra("datos",perro);
                             startActivity(i);
 
+                        }
+                    });
+
+                    pasear.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SharedPreferences.Editor edit = mPreference.edit();
+                            String Parameters = perro.getNombre();
+                            edit.putString("perros", Parameters);
+                            edit.apply();
+                            Intent i = new Intent(PerfilUsuarioActivity.this, FiltroMapaActivity.class);
+                            startActivity(i);
                         }
                     });
 
