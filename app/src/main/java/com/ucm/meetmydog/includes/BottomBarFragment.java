@@ -1,4 +1,4 @@
-package com.ucm.meetmydog;
+package com.ucm.meetmydog.includes;
 
 import android.os.Bundle;
 
@@ -14,6 +14,12 @@ import nl.joery.animatedbottombar.AnimatedBottomBar;
 import nl.joery.animatedbottombar.AnimatedBottomBar.OnTabSelectListener;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+
+import com.ucm.meetmydog.activities.home.InicialActivity;
+import com.ucm.meetmydog.activities.mapa.MapaActivity;
+import com.ucm.meetmydog.activities.perfil.PerfilUsuarioActivity;
+import com.ucm.meetmydog.R;
+
 public class BottomBarFragment extends Fragment implements OnTabSelectListener {
     private AnimatedBottomBar bottomBar;
 

@@ -1,7 +1,7 @@
-package com.ucm.meetmydog;
+package com.ucm.meetmydog.activities.mapa;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,6 +15,11 @@ import android.widget.TextView;
 
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.slider.Slider;
+import com.ucm.meetmydog.R;
+import com.ucm.meetmydog.activities.home.InicialActivity;
+import com.ucm.meetmydog.activities.perfil.PerfilUsuarioActivity;
+
+import nl.joery.animatedbottombar.AnimatedBottomBar;
 
 public class FiltroMapaActivity extends AppCompatActivity {
     Slider distancia, tiempo;
@@ -25,6 +30,7 @@ public class FiltroMapaActivity extends AppCompatActivity {
     ImageView image;
     int distanciaNum, tiempoNum, pesoMin, pesoMax;
 
+    AnimatedBottomBar bottomBar;
     SharedPreferences mPref;
 
     @Override
@@ -40,6 +46,7 @@ public class FiltroMapaActivity extends AppCompatActivity {
         comenzarPaseo = findViewById(R.id.bottonPasear);
         display = findViewById(R.id.textViewDisplayer);
         image = findViewById(R.id.imageDisplay);
+        bottomBar = findViewById(R.id.bottom_bar);
 
         distanciaNum = 0;
         tiempoNum = 0;
@@ -59,11 +66,6 @@ public class FiltroMapaActivity extends AppCompatActivity {
             public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
                 tiempoNum = (int) value;
                 display.setText("Vas a pasear durante "+ tiempoNum + " minutos");
-                //image.setImageURI();
-                if (value < 30){
-                    image.setImageResource(@DrawableRes)
-                }
-                if (value > 30 && value < 90)
             }
         });
 
@@ -82,6 +84,28 @@ public class FiltroMapaActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
+        });
+        bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
+            @Override
+            public void onTabSelected(int i, @Nullable AnimatedBottomBar.Tab tab, int i1, @NonNull AnimatedBottomBar.Tab tab1) {
+                switch (i1) {
+                    case 0:
+                        Intent intent1 = new Intent(FiltroMapaActivity.this, InicialActivity.class);
+                        startActivity(intent1);
+                        break;
+                    case 1:
+                        Intent intent2 = new Intent(FiltroMapaActivity.this, SeleccionPerrosActivity.class);
+                        startActivity(intent2);
+                        break;
+                    case 2:
+                        Intent intent3 = new Intent(FiltroMapaActivity.this, PerfilUsuarioActivity.class);
+                        startActivity(intent3);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {}
         });
     }
     private void cargarDatos (){

@@ -1,4 +1,4 @@
-package com.ucm.meetmydog;
+package com.ucm.meetmydog.activities.autentificacion;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +14,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.ucm.meetmydog.R;
+import com.ucm.meetmydog.modelos.Usuario;
 
 public class RegistroActivity extends AppCompatActivity {
     EditText usuario;

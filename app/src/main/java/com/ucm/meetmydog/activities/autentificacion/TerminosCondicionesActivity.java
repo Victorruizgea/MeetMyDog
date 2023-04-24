@@ -1,4 +1,4 @@
-package com.ucm.meetmydog;
+package com.ucm.meetmydog.activities.autentificacion;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.ucm.meetmydog.R;
+import com.ucm.meetmydog.activities.MainActivity;
+import com.ucm.meetmydog.includes.imagenUsuarioActivity;
 
 public class TerminosCondicionesActivity extends AppCompatActivity {
     CheckBox Condicion1, Condicion2;

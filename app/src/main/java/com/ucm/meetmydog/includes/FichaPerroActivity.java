@@ -1,4 +1,4 @@
-package com.ucm.meetmydog;
+package com.ucm.meetmydog.includes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.ucm.meetmydog.modelos.Perro;
+import com.ucm.meetmydog.R;
 
 public class FichaPerroActivity extends AppCompatActivity {
     private TextView nombre;

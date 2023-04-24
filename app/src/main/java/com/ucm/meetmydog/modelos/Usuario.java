@@ -1,5 +1,7 @@
-package com.ucm.meetmydog;
+package com.ucm.meetmydog.modelos;
 
+
+import com.ucm.meetmydog.modelos.Perro;
 
 import java.util.List;
 

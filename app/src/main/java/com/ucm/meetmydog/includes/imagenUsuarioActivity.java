@@ -1,11 +1,9 @@
-package com.ucm.meetmydog;
+package com.ucm.meetmydog.includes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -23,8 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.ucm.meetmydog.R;
+import com.ucm.meetmydog.activities.perfil.CrearPerfilPerroActivity;
 
-import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
 public class imagenUsuarioActivity extends AppCompatActivity {

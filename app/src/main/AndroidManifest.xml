@@ -17,46 +17,46 @@
         android:theme="@style/Theme.MeetMyDog"
         tools:targetApi="31">
         <activity
-            android:name=".SeleccionPerrosActivity"
+            android:name=".activities.mapa.SeleccionPerrosActivity"
             android:exported="false" />
         <activity
-            android:name=".FichaPerroActivity"
+            android:name=".includes.FichaPerroActivity"
             android:exported="false" />
         <activity
-            android:name=".EditarPerfilUsuario"
+            android:name=".activities.perfil.EditarPerfilUsuario"
             android:exported="false" />
         <activity
-            android:name=".MapaActivity"
+            android:name=".activities.mapa.MapaActivity"
             android:exported="false" />
         <activity
-            android:name=".FiltroMapaActivity"
+            android:name=".activities.mapa.FiltroMapaActivity"
             android:exported="false" />
         <activity
-            android:name=".PerfilUsuarioActivity"
+            android:name=".activities.perfil.PerfilUsuarioActivity"
             android:exported="false" />
         <activity
-            android:name=".imagenUsuarioActivity"
+            android:name=".includes.imagenUsuarioActivity"
             android:exported="false" />
         <activity
-            android:name=".EditarPerfilPerro"
+            android:name=".activities.perfil.EditarPerfilPerro"
             android:exported="false" />
         <activity
-            android:name=".CrearPerfilPerroActivity"
+            android:name=".activities.perfil.CrearPerfilPerroActivity"
             android:exported="false" />
         <activity
-            android:name=".InicioSesionActivity"
+            android:name=".activities.autentificacion.InicioSesionActivity"
             android:exported="false" />
         <activity
-            android:name=".InicialActivity"
+            android:name=".activities.home.InicialActivity"
             android:exported="false" />
         <activity
-            android:name=".TerminosCondicionesActivity"
+            android:name=".activities.autentificacion.TerminosCondicionesActivity"
             android:exported="false" />
         <activity
-            android:name=".RegistroActivity"
+            android:name=".activities.autentificacion.RegistroActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.ucm.meetmydog;
+package com.ucm.meetmydog.modelos;
 
 import java.io.Serializable;
 

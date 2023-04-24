@@ -1,6 +1,7 @@
-package com.ucm.meetmydog;
+package com.ucm.meetmydog.activities.mapa;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -29,8 +30,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.ucm.meetmydog.activities.home.InicialActivity;
+import com.ucm.meetmydog.activities.perfil.PerfilUsuarioActivity;
+import com.ucm.meetmydog.modelos.Paseo;
+import com.ucm.meetmydog.R;
 
 import java.util.ArrayList;
+
+import nl.joery.animatedbottombar.AnimatedBottomBar;
 
 public class MapaActivity extends AppCompatActivity implements OnMapReadyCallback {
     GoogleMap mMap;
@@ -43,6 +50,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
     DatabaseReference mDatabase;
     FirebaseAuth auth;
 
+    AnimatedBottomBar bottomBar;
     double peso = -1;
     Paseo paseo;
     @Override
@@ -52,6 +60,29 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
         mPreference = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.FragmentoMapaExtra);
         mapFragment.getMapAsync(this);
+        bottomBar = findViewById(R.id.bottom_bar);
+        bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
+            @Override
+            public void onTabSelected(int i, @Nullable AnimatedBottomBar.Tab tab, int i1, @NonNull AnimatedBottomBar.Tab tab1) {
+                switch (i1) {
+                    case 0:
+                        Intent intent1 = new Intent(MapaActivity.this, InicialActivity.class);
+                        startActivity(intent1);
+                        break;
+                    case 1:
+                        Intent intent2 = new Intent(MapaActivity.this, SeleccionPerrosActivity.class);
+                        startActivity(intent2);
+                        break;
+                    case 2:
+                        Intent intent3 = new Intent(MapaActivity.this, PerfilUsuarioActivity.class);
+                        startActivity(intent3);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {}
+        });
     }
 
     //Muestra las localizaciones con su fecha asignada en nuestro mapa (tantas como se le hayan pasado por el bundle)

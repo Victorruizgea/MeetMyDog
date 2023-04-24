@@ -1,4 +1,4 @@
-package com.ucm.meetmydog;
+package com.ucm.meetmydog.activities.perfil;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.ucm.meetmydog.activities.home.InicialActivity;
+import com.ucm.meetmydog.modelos.Perro;
+import com.ucm.meetmydog.R;
 
 public class CrearPerfilPerroActivity extends AppCompatActivity {
 

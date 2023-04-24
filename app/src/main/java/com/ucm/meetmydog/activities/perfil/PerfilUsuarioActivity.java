@@ -1,6 +1,7 @@
-package com.ucm.meetmydog;
+package com.ucm.meetmydog.activities.perfil;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -28,10 +29,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.ucm.meetmydog.modelos.Perro;
+import com.ucm.meetmydog.R;
+import com.ucm.meetmydog.activities.mapa.SeleccionPerrosActivity;
+import com.ucm.meetmydog.activities.home.InicialActivity;
+import com.ucm.meetmydog.activities.mapa.FiltroMapaActivity;
+import com.ucm.meetmydog.includes.FichaPerroActivity;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+
+import nl.joery.animatedbottombar.AnimatedBottomBar;
 
 public class PerfilUsuarioActivity extends AppCompatActivity {
     private TextView nombreUsuarioTextView;
@@ -43,6 +50,8 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
     private StorageReference mStorage;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+
+    private AnimatedBottomBar bottomBar;
 
     SharedPreferences mPreference;
 
@@ -57,6 +66,7 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         editarPerfilUsuario=findViewById(R.id.editarPerfilUsuario);
         anadirPerro=findViewById(R.id.anadirPerroBoton);
         mPreference = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
+        bottomBar = findViewById(R.id.bottom_bar);
         cargarDatosUsuario();
         editarPerfilUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +82,28 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
+            @Override
+            public void onTabSelected(int i, @Nullable AnimatedBottomBar.Tab tab, int i1, @NonNull AnimatedBottomBar.Tab tab1) {
+                switch (i1) {
+                    case 0:
+                        Intent intent1 = new Intent(PerfilUsuarioActivity.this, InicialActivity.class);
+                        startActivity(intent1);
+                        break;
+                    case 1:
+                        Intent intent2 = new Intent(PerfilUsuarioActivity.this, SeleccionPerrosActivity.class);
+                        startActivity(intent2);
+                        break;
+                    case 2:
+                        Intent intent3 = new Intent(PerfilUsuarioActivity.this, PerfilUsuarioActivity.class);
+                        startActivity(intent3);
+                        break;
+                }
+            }
 
+            @Override
+            public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {}
+        });
 
     }
 

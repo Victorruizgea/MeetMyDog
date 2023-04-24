@@ -1,4 +1,4 @@
-package com.ucm.meetmydog;
+package com.ucm.meetmydog.activities.perfil;
 
 
 
@@ -31,6 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.ucm.meetmydog.activities.home.InicialActivity;
+import com.ucm.meetmydog.modelos.Perro;
+import com.ucm.meetmydog.R;
 
 import java.util.Map;
 

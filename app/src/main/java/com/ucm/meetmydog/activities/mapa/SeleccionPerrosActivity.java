@@ -1,6 +1,7 @@
-package com.ucm.meetmydog;
+package com.ucm.meetmydog.activities.mapa;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -28,6 +29,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.ucm.meetmydog.R;
+import com.ucm.meetmydog.activities.home.InicialActivity;
+import com.ucm.meetmydog.activities.perfil.PerfilUsuarioActivity;
+import com.ucm.meetmydog.modelos.Perro;
+
+import nl.joery.animatedbottombar.AnimatedBottomBar;
 
 public class SeleccionPerrosActivity extends AppCompatActivity {
 
@@ -38,6 +45,8 @@ public class SeleccionPerrosActivity extends AppCompatActivity {
 
     SharedPreferences mPreference;
 
+    AnimatedBottomBar bottomBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +55,7 @@ public class SeleccionPerrosActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         String id = mAuth.getCurrentUser().getUid();
         contenedorPerros=findViewById(R.id.contenedorPerrosSeleccionar);
+        bottomBar = findViewById(R.id.bottom_bar);
         mPreference = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
 
         mDatabase.child("user").child(id).child("perros").addValueEventListener(new ValueEventListener() {
@@ -71,7 +81,7 @@ public class SeleccionPerrosActivity extends AppCompatActivity {
                     seleccionar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent i= new Intent(SeleccionPerrosActivity.this,FiltroMapaActivity.class);
+                            Intent i= new Intent(SeleccionPerrosActivity.this, FiltroMapaActivity.class);
                             SharedPreferences.Editor edit = mPreference.edit();
                             String Parameters = perro.getNombre();
                             edit.putString("perros", Parameters);
@@ -96,6 +106,28 @@ public class SeleccionPerrosActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+        });
+        bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
+            @Override
+            public void onTabSelected(int i, @Nullable AnimatedBottomBar.Tab tab, int i1, @NonNull AnimatedBottomBar.Tab tab1) {
+                switch (i1) {
+                    case 0:
+                        Intent intent1 = new Intent(SeleccionPerrosActivity.this, InicialActivity.class);
+                        startActivity(intent1);
+                        break;
+                    case 1:
+                        Intent intent2 = new Intent(SeleccionPerrosActivity.this, SeleccionPerrosActivity.class);
+                        startActivity(intent2);
+                        break;
+                    case 2:
+                        Intent intent3 = new Intent(SeleccionPerrosActivity.this, PerfilUsuarioActivity.class);
+                        startActivity(intent3);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {}
         });
 
     }
