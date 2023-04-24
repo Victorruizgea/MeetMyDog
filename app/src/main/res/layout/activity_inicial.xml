@@ -4,32 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo"
     tools:context=".InicialActivity">
 
     <Button
         android:id="@+id/botoneditar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="147dp"
-        android:layout_marginEnd="170dp"
+        android:layout_width="190dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="276dp"
         android:backgroundTint="#4553D2"
         android:text="Ver perfil"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/paseo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="149dp"
-        android:layout_marginEnd="174dp"
+        android:layout_width="190dp"
+        android:layout_height="70dp"
         android:backgroundTint="#4553D2"
         android:text="Paseo"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botoneditar" />
+        app:layout_constraintTop_toBottomOf="@+id/botoneditar"
+        app:layout_constraintVertical_bias="0.23" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
