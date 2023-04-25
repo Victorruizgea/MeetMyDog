@@ -16,6 +16,18 @@
             map:uiRotateGestures="true"
             map:uiZoomControls = "true"
             />
+        <Button
+            android:id="@+id/ListaBoton"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_marginBottom="196dp"
+            android:backgroundTint="#4553D2"
+
+            android:text="Lista de perros"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <nl.joery.animatedbottombar.AnimatedBottomBar
             android:id="@+id/bottom_bar"
             android:layout_width="0dp"

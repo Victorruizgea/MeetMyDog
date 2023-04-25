@@ -18,6 +18,7 @@ import nl.joery.animatedbottombar.AnimatedBottomBar;
 public class InicialActivity extends AppCompatActivity {
     Button editarPerfil;
     Button paseo;
+    Button buzon;
 
     private AnimatedBottomBar bottomBar;
     @Override
@@ -26,6 +27,7 @@ public class InicialActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inicial);
         editarPerfil=findViewById(R.id.botoneditar);
         paseo=findViewById(R.id.paseo);
+        buzon=findViewById(R.id.buttonbuzon);
         bottomBar = findViewById(R.id.bottom_bar);
         editarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +40,13 @@ public class InicialActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(InicialActivity.this, SeleccionPerrosActivity.class);
+                startActivity(intent);
+            }
+        });
+        buzon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(InicialActivity.this, BuzonActivity.class);
                 startActivity(intent);
             }
         });
@@ -59,6 +68,7 @@ public class InicialActivity extends AppCompatActivity {
                         break;
                 }
             }
+
 
             @Override
             public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {}

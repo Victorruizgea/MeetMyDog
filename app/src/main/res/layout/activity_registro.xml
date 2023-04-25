@@ -85,25 +85,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailUsuario"
         />
-
-    <nl.joery.animatedbottombar.AnimatedBottomBar
-        android:id="@+id/bottom_bar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#4553D2"
-        app:abb_indicatorAnimation="slide"
-        app:abb_indicatorAppearance="round"
-        app:abb_indicatorColor="#1E26A9"
-        app:abb_indicatorHeight="5dp"
-        app:abb_indicatorLocation="top"
-        app:abb_selectedIndex="1"
-        app:abb_selectedTabType="text"
-        app:abb_tabAnimation="slide"
-        app:abb_tabAnimationSelected="slide"
-        app:abb_tabColor="@color/white"
-        app:abb_tabColorSelected="@color/white"
-        app:abb_tabs="@menu/nav_menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

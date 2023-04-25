@@ -14,6 +14,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -52,15 +54,24 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     AnimatedBottomBar bottomBar;
     double peso = -1;
+    Button lista;
     Paseo paseo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapa);
+        lista=findViewById(R.id.ListaBoton);
         mPreference = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.FragmentoMapaExtra);
         mapFragment.getMapAsync(this);
         bottomBar = findViewById(R.id.bottom_bar);
+        lista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MapaActivity.this, ListaPerrosActivity.class);
+                startActivity(intent);
+            }
+        });
         bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override
             public void onTabSelected(int i, @Nullable AnimatedBottomBar.Tab tab, int i1, @NonNull AnimatedBottomBar.Tab tab1) {

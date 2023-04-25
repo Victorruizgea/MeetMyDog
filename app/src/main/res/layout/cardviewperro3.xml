@@ -30,11 +30,11 @@
 
         <TextView
             android:id="@+id/nombrePerroSeleccionCard3"
-            android:layout_width="113dp"
-            android:layout_height="32dp"
+            android:layout_width="115dp"
+            android:layout_height="25dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="32dp"
             android:text="Nombre
 "
             android:textAlignment="center"
@@ -43,17 +43,40 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imagePerroSeleccionCard3" />
 
+        <TextView
+            android:id="@+id/nombreDueñoCard2"
+            android:layout_width="115dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="4dp"
+            android:text="Nombre
+"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nombrePerroSeleccionCard3" />
+
         <Button
-            android:id="@+id/seleccionar"
+            android:id="@+id/mensaje"
+            android:layout_width="144dp"
+            android:layout_height="57dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="17dp"
+            android:text="Enviar mensaje"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/ver_ficha2"
             android:layout_width="141dp"
             android:layout_height="48dp"
-            android:layout_marginTop="73dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="#4553D2"
-            android:text="Seleccionar"
+            android:text="Ver ficha"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-             />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

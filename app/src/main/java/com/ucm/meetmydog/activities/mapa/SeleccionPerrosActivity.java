@@ -66,8 +66,8 @@ public class SeleccionPerrosActivity extends AppCompatActivity {
                     // Obtén el usuario actual como un objeto de la clase Usuario
                     Perro perro = perroSnapshot.getValue(Perro.class);
                     CardView cardView = (CardView) LayoutInflater.from(SeleccionPerrosActivity.this).inflate(R.layout.cardviewperro2, contenedorPerros, false);
-                    ImageView imagenCard = cardView.findViewById(R.id.imagePerroSeleccionCard);
-                    TextView nombreCard = cardView.findViewById(R.id.nombrePerroSeleccionCard);
+                    ImageView imagenCard = cardView.findViewById(R.id.imagePerroSeleccionCard3);
+                    TextView nombreCard = cardView.findViewById(R.id.nombrePerroSeleccionCard3);
                     Button seleccionar= cardView.findViewById(R.id.seleccionar);
 
                     nombreCard.setText(perro.getNombre());

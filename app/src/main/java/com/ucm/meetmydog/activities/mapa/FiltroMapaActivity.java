@@ -120,7 +120,7 @@ public class FiltroMapaActivity extends AppCompatActivity {
         SharedPreferences.Editor edit = mPref.edit();
         String Parameters = "";
         if(nobusquedaperros.isChecked()){
-            Parameters += "0,0,0,0";
+            Parameters += "100,10,10,45";
         }
         else{
             Parameters += distanciaNum +"," + tiempoNum + "," + pesoMin + "," + pesoMax;
