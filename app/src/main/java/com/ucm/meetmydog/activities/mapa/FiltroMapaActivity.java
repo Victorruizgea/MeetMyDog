@@ -19,6 +19,9 @@ import com.ucm.meetmydog.R;
 import com.ucm.meetmydog.activities.home.InicialActivity;
 import com.ucm.meetmydog.activities.perfil.PerfilUsuarioActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import nl.joery.animatedbottombar.AnimatedBottomBar;
 
 public class FiltroMapaActivity extends AppCompatActivity {
@@ -28,7 +31,10 @@ public class FiltroMapaActivity extends AppCompatActivity {
     Button comenzarPaseo;
     TextView display;
     ImageView image;
-    int distanciaNum, tiempoNum, pesoMin, pesoMax;
+    int distanciaNum;
+    int tiempoNum;
+    Float pesoMin;
+    Float pesoMax;
 
     AnimatedBottomBar bottomBar;
     SharedPreferences mPref;
@@ -48,10 +54,10 @@ public class FiltroMapaActivity extends AppCompatActivity {
         image = findViewById(R.id.imageDisplay);
         bottomBar = findViewById(R.id.bottom_bar);
 
-        distanciaNum = 0;
-        tiempoNum = 0;
-        pesoMin = 0;
-        pesoMax = 0;
+        distanciaNum = 100;
+        tiempoNum = 10;
+        pesoMin = Float.valueOf(10);
+        pesoMax = Float.valueOf(45);
         distancia.addOnChangeListener(new Slider.OnChangeListener() {
             @Override
             public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
@@ -72,7 +78,9 @@ public class FiltroMapaActivity extends AppCompatActivity {
         peso.addOnChangeListener(new RangeSlider.OnChangeListener() {
             @Override
             public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-
+                List<Float> values = slider.getValues();
+                pesoMin = values.get(0);
+                pesoMax = values.get(1);
             }
         });
 
