@@ -18,6 +18,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+
         app:srcCompat="@drawable/border_stylo_solido" />
 
     <Button
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginBottom="140dp"
+        android:backgroundTint="#4553D2"
         android:text="Cargar foto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -36,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="52dp"
         android:layout_marginBottom="140dp"
+        android:backgroundTint="#4553D2"
         android:text="Guardar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -45,6 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="59dp"
+        android:textColor="@color/black"
         android:text="Seleccione una foto para su perfil:"
         android:textAlignment="center"
         android:textSize="24sp"
