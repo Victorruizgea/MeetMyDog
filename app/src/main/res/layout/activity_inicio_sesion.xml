@@ -9,10 +9,10 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
-
+        android:layout_height="64dp"
+        android:layout_marginTop="82dp"
         android:fontFamily="sans-serif-black"
+        android:textColor="@color/white"
         android:text="Iniciar sesión"
         android:textAlignment="center"
         android:textSize="24sp"
