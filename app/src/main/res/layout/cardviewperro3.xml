@@ -71,10 +71,20 @@
         <Button
             android:id="@+id/ver_ficha2"
             android:layout_width="141dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="24dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="44dp"
             android:layout_marginEnd="16dp"
-            android:text="Ver ficha"
+            android:text="ficha"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="13dp"
+            android:text="Seguir"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

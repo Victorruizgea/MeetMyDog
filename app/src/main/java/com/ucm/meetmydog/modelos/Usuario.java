@@ -3,9 +3,10 @@ package com.ucm.meetmydog.modelos;
 
 import com.ucm.meetmydog.modelos.Perro;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Usuario {
+public class Usuario implements Serializable {
 
     private String nombre;
 
@@ -14,19 +15,15 @@ public class Usuario {
 
     private String imagenUri;
 
-    private List<Perro> listaPerros;
-    private List<String> amigos;
+    
 
     public Usuario(String nombre,String email,String password){
         this.nombre=nombre;
         this.email=email;
         this.password=password;
     }
-    public Usuario(String nombre,String email,String password,String imagenUri){
-        this.nombre=nombre;
-        this.email=email;
-        this.password=password;
-        this.imagenUri=imagenUri;
+    public Usuario(){
+
     }
 
     public String getNombre() {

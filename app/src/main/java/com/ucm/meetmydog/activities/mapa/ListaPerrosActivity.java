@@ -23,9 +23,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +40,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -118,6 +121,7 @@ public class ListaPerrosActivity extends AppCompatActivity {
                        ImageView imagenCard=cardView.findViewById(R.id.imagePerroSeleccionCard3);
                        Button verPerfil= cardView.findViewById(R.id.ver_ficha2);
                        Button enviarMensaje= cardView.findViewById(R.id.mensaje);
+                       Switch seguirAmigos=cardView.findViewById(R.id.switch1);
                        nombrePCard.setText(nombre);
                        nombreUsuarioCard.setText(nombreDueno);
                         if(imagen==null){
@@ -126,6 +130,40 @@ public class ListaPerrosActivity extends AppCompatActivity {
                         }else{
                             descargarImagen("imagenesPerro/" + imagen,imagenCard);
                         }
+
+                        seguirAmigos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                DatabaseReference amigosRef = mDatabase.child("user").child(id).child("amigos");
+                                if(b){
+                                    amigosRef.push().setValue(user);
+
+                                }else{
+                                    amigosRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if (dataSnapshot.exists()) {
+                                                for (DataSnapshot amigoSnapshot : dataSnapshot.getChildren()) {
+                                                    String amigo = amigoSnapshot.getValue(String.class);
+                                                    if (amigo.equals(user)) {
+                                                        amigoSnapshot.getRef().removeValue();
+                                                        break;
+                                                    }
+                                                }
+                                            } else {
+                                                // El campo amigos no existe para este usuario
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            // Manejo de errores
+                                        }
+                                    });
+
+                                }
+                            }
+                        });
                         verPerfil.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

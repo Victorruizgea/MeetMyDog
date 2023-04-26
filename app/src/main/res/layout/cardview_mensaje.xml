@@ -24,6 +24,8 @@
             android:layout_marginEnd="23dp"
             android:text="TextView"
             android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,6 +37,7 @@
             android:layout_marginEnd="17dp"
             android:layout_marginBottom="44dp"
             android:text="TextView"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -57,6 +60,7 @@
             android:layout_marginStart="17dp"
             android:layout_marginTop="13dp"
             android:text="TextView"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/textView15"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,13 +68,21 @@
             android:id="@+id/buttonResponder"
             android:layout_width="126dp"
             android:layout_height="44dp"
-            android:layout_marginStart="122dp"
-            android:layout_marginEnd="122dp"
+            android:layout_marginStart="37dp"
             android:text="Responder"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/buttonEliminarMensaje"
+            android:layout_width="126dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="35dp"
+            android:text="Eliminar"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

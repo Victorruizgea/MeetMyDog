@@ -17,6 +17,9 @@
         android:theme="@style/Theme.MeetMyDog"
         tools:targetApi="31">
         <activity
+            android:name=".activities.perfil.PerfilAmigoActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.home.BuzonActivity"
             android:exported="false" />
         <activity

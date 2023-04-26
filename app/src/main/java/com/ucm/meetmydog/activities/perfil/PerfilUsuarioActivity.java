@@ -47,14 +47,14 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
     private LinearLayout contenedorPerros;
     private Button editarPerfilUsuario;
     private Button anadirPerro;
+
+
+    SharedPreferences mPreference;
     private StorageReference mStorage;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
     private AnimatedBottomBar bottomBar;
-
-    SharedPreferences mPreference;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
