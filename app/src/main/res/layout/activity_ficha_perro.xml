@@ -16,6 +16,7 @@
         android:layout_marginEnd="137dp"
         android:contentDescription="Cargar imagen"
         android:src="@drawable/img_place_holder"
+        app:layout_constraintBottom_toTopOf="@+id/descripcionFicha"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
