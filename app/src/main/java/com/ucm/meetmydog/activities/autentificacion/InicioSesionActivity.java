@@ -70,6 +70,9 @@ public class InicioSesionActivity extends AppCompatActivity {
                         }
                     });
                 }
+                else{
+                    Toast.makeText(InicioSesionActivity.this,"El usuario o contraseña son incorrectos",Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
