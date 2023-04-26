@@ -281,6 +281,29 @@ public class InicialActivity extends AppCompatActivity implements LoaderManager.
     @Override
     public void onLoadFinished(@NonNull Loader<List<NoticiasPerro>> loader, List<NoticiasPerro> data) {
         listaNoticias = data;
+        for(int i =0;i<listaNoticias.size();i++){
+            CardView cardView = (CardView) LayoutInflater.from(InicialActivity.this).inflate(R.layout.cardview_noticia, contenedorNoticias, false);
+            TextView tituloN=cardView.findViewById(R.id.tituloNoticia);
+            TextView autorN=cardView.findViewById(R.id.autorNoticia);
+            Button link=cardView.findViewById(R.id.linkBoton);
+            tituloN.setText(listaNoticias.get(i).getTitulo());
+            autorN.setText(listaNoticias.get(i).getAutor());
+            String enlace=listaNoticias.get(i).getLink();
+            link.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(enlace));
+                    startActivity(intent);
+                }
+            });
+            contenedorNoticias.addView(cardView);
+
+            int totalWidth = contenedorNoticias.getChildCount() * cardView.getLayoutParams().width;
+
+            contenedorNoticias.getLayoutParams().width = totalWidth;
+
+
+        }
 
     }
 
