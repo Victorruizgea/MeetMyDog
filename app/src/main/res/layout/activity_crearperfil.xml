@@ -13,12 +13,11 @@
         android:layout_width="138dp"
         android:layout_height="127dp"
         android:layout_marginStart="136dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="137dp"
         android:contentDescription="Cargar imagen"
         android:src="@drawable/img_place_holder"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
