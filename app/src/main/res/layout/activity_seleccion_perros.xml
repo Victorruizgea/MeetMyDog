@@ -8,6 +8,7 @@
     tools:context=".activities.mapa.SeleccionPerrosActivity">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="527dp"
         android:layout_marginBottom="102dp"
@@ -26,15 +27,13 @@
         android:id="@+id/textView9"
         android:layout_width="383dp"
         android:layout_height="59dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="15dp"
-        android:text="Seleccione con que perro quiere iniciar su paseo:"
+        android:text="Seleccione arriba con qué perro quiere iniciar su paseo"
         android:textAlignment="center"
         android:textSize="24sp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <nl.joery.animatedbottombar.AnimatedBottomBar
         android:id="@+id/bottom_bar"
