@@ -7,79 +7,73 @@
     android:background="@drawable/fondo"
     tools:context=".activities.perfil.PerfilUsuarioActivity">
 
-    <ImageView
-        android:id="@+id/imageUsuarioPerfil"
-        android:layout_width="97dp"
-        android:layout_height="94dp"
-        android:layout_marginStart="157dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="157dp"
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/bottom_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/usuario" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/nombreUsuarioPerfil"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageUsuarioPerfil" />
+        android:orientation="vertical"
+        android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/emailUsuarioPerfil"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombreUsuarioPerfil" />
+        <ImageView
+            android:id="@+id/imageUsuarioPerfil"
+            android:layout_width="97dp"
+            android:layout_height="94dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp"
+            app:srcCompat="@drawable/usuario" />
 
-    <Button
-        android:id="@+id/editarPerfilUsuario"
-        android:layout_width="129dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="#4553D2"
-        android:text="Editar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombreUsuarioPerfil" />
+        <TextView
+            android:id="@+id/nombreUsuarioPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/anadirPerroBoton"
-        android:layout_width="128dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="49dp"
-        android:backgroundTint="#4553D2"
-        android:text="Añadir perro"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombreUsuarioPerfil" />
+        <TextView
+            android:id="@+id/emailUsuarioPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <HorizontalScrollView
-        android:layout_width="411dp"
-        android:layout_height="359dp"
-        android:layout_marginBottom="65dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:id="@+id/contenedorPerros"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" />
-    </HorizontalScrollView>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/editarPerfilUsuario"
+                android:layout_width="129dp"
+                android:layout_height="55dp"
+                android:backgroundTint="#4553D2"
+                android:text="Editar"
+                android:layout_marginEnd="16dp"/>
+
+            <Button
+                android:id="@+id/anadirPerroBoton"
+                android:layout_width="129dp"
+                android:layout_height="55dp"
+                android:backgroundTint="#4553D2"
+                android:text="Añadir perro"
+                android:layout_marginStart="16dp"/>
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
 
     <nl.joery.animatedbottombar.AnimatedBottomBar
         android:id="@+id/bottom_bar"
