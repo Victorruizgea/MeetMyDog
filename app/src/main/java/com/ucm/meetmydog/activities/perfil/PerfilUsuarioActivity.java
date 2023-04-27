@@ -62,7 +62,7 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         nombreUsuarioTextView = findViewById(R.id.nombreUsuarioPerfil);
         imagenUsuarioView = findViewById(R.id.imageUsuarioPerfil);
         emailUsuarioTextView=findViewById(R.id.emailUsuarioPerfil);
-        contenedorPerros=findViewById(R.id.contenedorPerros);
+        //contenedorPerros=findViewById(R.id.contenedorPerros);
         editarPerfilUsuario=findViewById(R.id.editarPerfilUsuario);
         anadirPerro=findViewById(R.id.anadirPerroBoton);
         mPreference = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);

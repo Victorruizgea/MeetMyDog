@@ -51,7 +51,7 @@ public class FiltroMapaActivity extends AppCompatActivity {
         nobusquedaperros = findViewById(R.id.checkboxNoBusquedaPerros);
         comenzarPaseo = findViewById(R.id.bottonPasear);
         display = findViewById(R.id.textViewDisplayer);
-        image = findViewById(R.id.imageDisplay);
+        //image = findViewById(R.id.imageDisplay);
         bottomBar = findViewById(R.id.bottom_bar);
 
         distanciaNum = 100;
