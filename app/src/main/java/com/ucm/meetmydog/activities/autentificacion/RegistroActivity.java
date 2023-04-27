@@ -54,7 +54,7 @@ public class RegistroActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(correo,passw).addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
                 String id = mAuth.getCurrentUser().getUid();
-                Usuario user = new Usuario(nombre, correo, passw);
+                Usuario user = new Usuario(nombre, correo);
                 mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
                 mDatabase.child("user").child(id).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
