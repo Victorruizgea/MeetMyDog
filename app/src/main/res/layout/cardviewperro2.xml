@@ -10,6 +10,7 @@
     app:cardUseCompatPadding="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     layout_height="300dp"
+    android:backgroundTint="#2B317F"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,8 +36,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="15dp"
-            android:text="Nombre
-"
+            android:text="Nombre"
+            android:textColor="@color/white"
             android:textAlignment="center"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,13 +48,12 @@
             android:id="@+id/seleccionar"
             android:layout_width="141dp"
             android:layout_height="48dp"
-            android:layout_marginTop="73dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="#4553D2"
             android:text="Seleccionar"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-             />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

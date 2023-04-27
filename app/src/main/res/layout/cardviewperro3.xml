@@ -10,6 +10,7 @@
     app:cardUseCompatPadding="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     layout_height="300dp"
+    android:backgroundTint="#2B317F"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,8 +36,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="32dp"
-            android:text="Nombre
-"
+            android:text="Nombre"
+            android:textColor="@color/white"
             android:textAlignment="center"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
