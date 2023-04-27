@@ -73,6 +73,7 @@
                 android:layout_marginStart="16dp"/>
         </LinearLayout>
 
+
         <HorizontalScrollView
             android:layout_width="411dp"
             android:layout_height="359dp"
@@ -88,6 +89,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal" />
         </HorizontalScrollView>
+
     </LinearLayout>
     </ScrollView>
 

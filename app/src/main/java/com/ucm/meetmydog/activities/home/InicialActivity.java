@@ -74,8 +74,8 @@ public class InicialActivity extends AppCompatActivity implements LoaderManager.
         mAuth = FirebaseAuth.getInstance();
         String id = mAuth.getCurrentUser().getUid();
 
-        LoaderManager loaderManager = LoaderManager.getInstance(this);
-        loaderManager.initLoader(0, null, this);
+        //LoaderManager loaderManager = LoaderManager.getInstance(this);
+       // loaderManager.initLoader(0, null, this);
         buzon = findViewById(R.id.buttonbuzon);
         bottomBar = findViewById(R.id.bottom_bar);
         contenedorAmigos = findViewById(R.id.contenedorAmigos);

@@ -30,7 +30,7 @@
         android:id="@+id/Distancia"
         android:gravity="center"
         android:paddingTop="0dp"
-        app:layout_constraintTop_toStartOf="@+id/filtroMapParent">
+        >
         <TextView
             android:id="@+id/DistanciaLabel"
             android:layout_width="wrap_content"
