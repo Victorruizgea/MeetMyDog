@@ -49,7 +49,7 @@ public class NoticiasLoader extends AsyncTaskLoader<List<NoticiasPerro>> {
             conn.setReadTimeout(10000 /* milliseconds */);
             conn.setConnectTimeout(15000 /* milliseconds */);
             conn.setRequestMethod("GET");
-            conn.setRequestProperty("x-api-key", "e1CvSzOvP9qOkNY1PbfYLLJ_mOYppMMwUtE8wupQmwI");
+            conn.setRequestProperty("x-api-key", "2sKHLMlWZYM117biCouzp545ey8BFNjovYwG4t8kmB8");
             conn.setDoInput(true);
             conn.connect();
             int response = conn.getResponseCode();
