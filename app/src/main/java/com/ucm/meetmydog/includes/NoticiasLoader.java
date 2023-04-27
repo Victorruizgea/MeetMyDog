@@ -1,4 +1,4 @@
-package com.ucm.meetmydog.activities;
+package com.ucm.meetmydog.includes;
 
 import android.content.Context;
 import android.net.Uri;

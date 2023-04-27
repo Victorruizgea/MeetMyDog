@@ -242,8 +242,11 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     String [] resultAux = result.split(" ");
                                     if (pesoMin <= Double.valueOf(resultAux[4]) && Double.valueOf(resultAux[4]) <= pesoMax && distanciaPaseo(usrlat, usrlon, Double.valueOf(resultAux[0]), Double.valueOf(resultAux[1]), Integer.valueOf(resultAux[2])
                                             , Integer.valueOf(parAux[0]))) {
-                                        perros.add(resultAux[0]);
-                                        perros.add(resultAux[1]);
+                                        Double lat = Double.valueOf(resultAux[0]);
+                                        Double lon = Double.valueOf(resultAux[1]);
+                                        LatLng childLocation = new LatLng(lat, lon);
+
+                                        mMap.addMarker(new MarkerOptions().position(childLocation)).setTitle("Perrito ");
                                     }
                                 }
                             }

@@ -63,7 +63,7 @@ public class ListaPerrosActivity extends AppCompatActivity {
     String[] parAux, perroAux;
     private LinearLayout contenedorPerros;
     private StorageReference mStorage;
-
+    double usrlat, usrlon;
     private FirebaseAuth mAuth;
     List<String> perros;
     String nombreDueno;
@@ -83,179 +83,191 @@ public class ListaPerrosActivity extends AppCompatActivity {
             perroAux = nombrePerros.split(",");
             perros=new ArrayList<>();
             getPerros(parAux);
-            perros.add("EQVDDcZVgwbs42KtJaOH0oHV9822,phoebe");
-            perros.add("zwNZTYD0W4YSjzXyatJZSNdf2042,firulais");
-            for(int i =0;i<perros.size();i++){
-                String[] partes =perros.get(i).split(",");
-                String user=partes[0];
-                String nombrePerro=partes[1];
 
-                mDatabase.child("user").child(user).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Map<String, Object> usuarioMap = (Map<String, Object>) snapshot.getValue();
-                         nombreDueno= (String) usuarioMap.get("nombre");
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-                mDatabase.child("user").child(user).child("perros").child(nombrePerro).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                       Map<String, Object> datosPerro = (Map<String, Object>) snapshot.getValue();
-                       String nombre= (String) datosPerro.get("nombre");
-                       String raza= (String) datosPerro.get("raza");
-                       String descripcion= (String) datosPerro.get("descripcion");
-                       //int peso= (int) datosPerro.get("peso");
-                        int peso=5;
-                        int edad=4;
-                       //int edad= (int) datosPerro.get("edad");
-                       String imagen= (String) datosPerro.get("imagenUri");
-                       Perro perro=new Perro(nombre,imagen,descripcion,edad,peso,raza);
-                       CardView cardView = (CardView) LayoutInflater.from(ListaPerrosActivity.this).inflate(R.layout.cardviewperro3, contenedorPerros, false);
-                       TextView nombrePCard=cardView.findViewById(R.id.nombrePerroSeleccionCard3);
-                       TextView nombreUsuarioCard=cardView.findViewById(R.id.nombreDueñoCard2);
-                       ImageView imagenCard=cardView.findViewById(R.id.imagePerroSeleccionCard3);
-                       Button verPerfil= cardView.findViewById(R.id.ver_ficha2);
-                       Button enviarMensaje= cardView.findViewById(R.id.mensaje);
-                       Switch seguirAmigos=cardView.findViewById(R.id.switch1);
-                       nombrePCard.setText(nombre);
-                       nombreUsuarioCard.setText(nombreDueno);
-                        if(imagen==null){
-                            Drawable drawable = getResources().getDrawable(R.drawable.defaultperro);
-                            imagenCard.setImageDrawable(drawable);
-                        }else{
-                            descargarImagen("imagenesPerro/" + imagen,imagenCard);
+            Double pesoMin = Double.valueOf(parAux[2]);
+            Double pesoMax = Double.valueOf(parAux[3]);
+            mDatabase.child("user").child("paseo").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (DataSnapshot ds : task.getResult().getChildren()) {
+                            String key = ds.getKey();
+                            String result = ds.getValue(String.class);
+                            String[] resultAux = result.split(" ");
+                            if (pesoMin <= Double.valueOf(resultAux[4]) && Double.valueOf(resultAux[4]) <= pesoMax) {
+                                if (distanciaPaseo(usrlat, usrlon, Double.valueOf(resultAux[0]), Double.valueOf(resultAux[1]), Integer.valueOf(resultAux[2]), Integer.valueOf(parAux[0])))
+                                    perros.add(key);
+                            }
                         }
+                        for (int i = 0; i < perros.size(); i++) {
+                            String[] partes = perros.get(i).split(",");
+                            String user = partes[0];
+                            String nombrePerro = partes[1];
 
-                        seguirAmigos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                                DatabaseReference amigosRef = mDatabase.child("user").child(id).child("amigos");
-                                if(b){
-                                    amigosRef.push().setValue(user);
+                            mDatabase.child("user").child(user).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    Map<String, Object> usuarioMap = (Map<String, Object>) snapshot.getValue();
+                                    nombreDueno = (String) usuarioMap.get("nombre");
+                                }
 
-                                }else{
-                                    amigosRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            if (dataSnapshot.exists()) {
-                                                for (DataSnapshot amigoSnapshot : dataSnapshot.getChildren()) {
-                                                    String amigo = amigoSnapshot.getValue(String.class);
-                                                    if (amigo.equals(user)) {
-                                                        amigoSnapshot.getRef().removeValue();
-                                                        break;
-                                                    }
-                                                }
-                                            } else {
-                                                // El campo amigos no existe para este usuario
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                                            // Manejo de errores
-                                        }
-                                    });
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
 
                                 }
-                            }
-                        });
-                        verPerfil.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent i = new Intent(ListaPerrosActivity.this, FichaPerroActivity.class);
-                                i.putExtra("datos",perro);
-                                startActivity(i);
-                            }
-                        });
-                        enviarMensaje.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                AlertDialog.Builder builder=new AlertDialog.Builder(ListaPerrosActivity.this);
-                                LayoutInflater inflater=getLayoutInflater();
-                                View dialogo=inflater.inflate(R.layout.dialogo_enviar_mensaje,null);
-                                builder.setView(dialogo);
-                                EditText text= dialogo.findViewById(R.id.textDialog);
-                                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.dismiss();
+                            });
+                            mDatabase.child("user").child(user).child("perros").child(nombrePerro).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    Map<String, Object> datosPerro = (Map<String, Object>) snapshot.getValue();
+                                    String nombre = (String) datosPerro.get("nombre");
+                                    String raza = (String) datosPerro.get("raza");
+                                    String descripcion = (String) datosPerro.get("descripcion");
+                                    //int peso= (int) datosPerro.get("peso");
+                                    int peso = 5;
+                                    int edad = 4;
+                                    //int edad= (int) datosPerro.get("edad");
+                                    String imagen = (String) datosPerro.get("imagenUri");
+                                    Perro perro = new Perro(nombre, imagen, descripcion, edad, peso, raza);
+                                    CardView cardView = (CardView) LayoutInflater.from(ListaPerrosActivity.this).inflate(R.layout.cardviewperro3, contenedorPerros, false);
+                                    TextView nombrePCard = cardView.findViewById(R.id.nombrePerroSeleccionCard3);
+                                    TextView nombreUsuarioCard = cardView.findViewById(R.id.nombreDueñoCard2);
+                                    ImageView imagenCard = cardView.findViewById(R.id.imagePerroSeleccionCard3);
+                                    Button verPerfil = cardView.findViewById(R.id.ver_ficha2);
+                                    Button enviarMensaje = cardView.findViewById(R.id.mensaje);
+                                    Switch seguirAmigos = cardView.findViewById(R.id.switch1);
+                                    nombrePCard.setText(nombre);
+                                    nombreUsuarioCard.setText(nombreDueno);
+                                    if (imagen == null) {
+                                        Drawable drawable = getResources().getDrawable(R.drawable.defaultperro);
+                                        imagenCard.setImageDrawable(drawable);
+                                    } else {
+                                        descargarImagen("imagenesPerro/" + imagen, imagenCard);
                                     }
-                                });
 
-                                builder.setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        if(text.getText().toString().isEmpty()){
-                                            Toast.makeText(builder.getContext(),"No se puede enviar un mensaje vacio",Toast.LENGTH_LONG).show();
-                                        }else{
-                                            Calendar calendar = Calendar.getInstance();
-                                            int year = calendar.get(Calendar.YEAR);
-                                            int month = calendar.get(Calendar.MONTH);
-                                            int day = calendar.get(Calendar.DAY_OF_MONTH);
-                                            String fecha=day + "/" + (month + 1) + "/" + year;
-                                            UUID uuid = UUID.randomUUID();
-                                            String idMensaje = uuid.toString();
-                                            mDatabase.child("user").child(id).addValueEventListener(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    Map<String, Object> usuarioMap = (Map<String, Object>) snapshot.getValue();
-                                                    Mensaje mensaje=new Mensaje(text.getText().toString(),id, (String) usuarioMap.get("nombre"),fecha);
-                                                    mDatabase.child("user").child(user).child("mensajes").child(idMensaje).setValue(mensaje).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void unused) {
-                                                            Toast.makeText(ListaPerrosActivity.this,"Mensaje enviado",Toast.LENGTH_LONG).show();
+                                    seguirAmigos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                        @Override
+                                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                            DatabaseReference amigosRef = mDatabase.child("user").child(id).child("amigos");
+                                            if (b) {
+                                                amigosRef.push().setValue(user);
+
+                                            } else {
+                                                amigosRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                        if (dataSnapshot.exists()) {
+                                                            for (DataSnapshot amigoSnapshot : dataSnapshot.getChildren()) {
+                                                                String amigo = amigoSnapshot.getValue(String.class);
+                                                                if (amigo.equals(user)) {
+                                                                    amigoSnapshot.getRef().removeValue();
+                                                                    break;
+                                                                }
+                                                            }
+                                                        } else {
+                                                            // El campo amigos no existe para este usuario
                                                         }
-                                                    }).addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Toast.makeText(ListaPerrosActivity.this,"No se ha podido enviar el mensaje",Toast.LENGTH_LONG).show();
-                                                        }
-                                                    });
+                                                    }
 
-                                                }
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                        // Manejo de errores
+                                                    }
+                                                });
 
+                                            }
+                                        }
+                                    });
+                                    verPerfil.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Intent i = new Intent(ListaPerrosActivity.this, FichaPerroActivity.class);
+                                            i.putExtra("datos", perro);
+                                            startActivity(i);
+                                        }
+                                    });
+                                    enviarMensaje.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(ListaPerrosActivity.this);
+                                            LayoutInflater inflater = getLayoutInflater();
+                                            View dialogo = inflater.inflate(R.layout.dialogo_enviar_mensaje, null);
+                                            builder.setView(dialogo);
+                                            EditText text = dialogo.findViewById(R.id.textDialog);
+                                            builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                                                 @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-
+                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                    dialogInterface.dismiss();
                                                 }
                                             });
 
+                                            builder.setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                    if (text.getText().toString().isEmpty()) {
+                                                        Toast.makeText(builder.getContext(), "No se puede enviar un mensaje vacio", Toast.LENGTH_LONG).show();
+                                                    } else {
+                                                        Calendar calendar = Calendar.getInstance();
+                                                        int year = calendar.get(Calendar.YEAR);
+                                                        int month = calendar.get(Calendar.MONTH);
+                                                        int day = calendar.get(Calendar.DAY_OF_MONTH);
+                                                        String fecha = day + "/" + (month + 1) + "/" + year;
+                                                        UUID uuid = UUID.randomUUID();
+                                                        String idMensaje = uuid.toString();
+                                                        mDatabase.child("user").child(id).addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                Map<String, Object> usuarioMap = (Map<String, Object>) snapshot.getValue();
+                                                                Mensaje mensaje = new Mensaje(text.getText().toString(), id, (String) usuarioMap.get("nombre"), fecha);
+                                                                mDatabase.child("user").child(user).child("mensajes").child(idMensaje).setValue(mensaje).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void unused) {
+                                                                        Toast.makeText(ListaPerrosActivity.this, "Mensaje enviado", Toast.LENGTH_LONG).show();
+                                                                    }
+                                                                }).addOnFailureListener(new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
+                                                                        Toast.makeText(ListaPerrosActivity.this, "No se ha podido enviar el mensaje", Toast.LENGTH_LONG).show();
+                                                                    }
+                                                                });
+
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                                            }
+                                                        });
+
+
+                                                    }
+                                                    dialogInterface.dismiss();
+
+
+                                                }
+                                            });
+                                            AlertDialog dialog = builder.create();
+                                            dialog.show();
 
                                         }
-                                        dialogInterface.dismiss();
+                                    });
+                                    contenedorPerros.addView(cardView);
+                                    int totalWidth = contenedorPerros.getChildCount() * cardView.getLayoutParams().width;
 
+                                    contenedorPerros.getLayoutParams().width = totalWidth;
+                                }
 
-                                    }
-                                });
-                                AlertDialog dialog=builder.create();
-                                dialog.show();
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                        });
-                        contenedorPerros.addView(cardView);
-                        int totalWidth = contenedorPerros.getChildCount() * cardView.getLayoutParams().width;
+                                }
+                            });
 
-                        contenedorPerros.getLayoutParams().width = totalWidth;
+                        }
                     }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-
-
-            }
-
+                }
+            });
         }
-
-
     }
     private void descargarImagen(String imagenUri, ImageView view) {
 
@@ -280,14 +292,11 @@ public class ListaPerrosActivity extends AppCompatActivity {
         String idUser = auth.getCurrentUser().getUid();
         mDatabase = FirebaseDatabase.getInstance("https://meetmydog-6a9f5-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
 
-
-        Double pesoMin = Double.valueOf(parametros[2]);
-        Double pesoMax = Double.valueOf(parametros[3]);
-
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //En el caso de no tenerlos los pedimos con la funncion requestPermissions
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){}
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            }
 
         } else {
             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -295,23 +304,7 @@ public class ListaPerrosActivity extends AppCompatActivity {
 
             double usrlat = location.getLatitude();
             double usrlon = location.getLongitude();
-
-
-            mDatabase.child("user").child("paseo").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        for (DataSnapshot ds : task.getResult().getChildren()) {
-                            String key = ds.getKey();
-                            perros.add(key);
-
-                        }
-                    }
-                }
-            });
         }
-
-
     }
     private boolean distanciaPaseo(Double lat1, Double long1, Double lat2, Double long2, int distanciaExt, int distanciaUsr) {
         int R = 6371;

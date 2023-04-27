@@ -35,8 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.ucm.meetmydog.activities.NoticiasLoader;
-import com.ucm.meetmydog.activities.mapa.ListaPerrosActivity;
+import com.ucm.meetmydog.includes.NoticiasLoader;
 import com.ucm.meetmydog.activities.perfil.PerfilAmigoActivity;
 import com.ucm.meetmydog.activities.perfil.PerfilUsuarioActivity;
 import com.ucm.meetmydog.R;
@@ -44,9 +43,6 @@ import com.ucm.meetmydog.activities.mapa.SeleccionPerrosActivity;
 import com.ucm.meetmydog.modelos.Mensaje;
 import com.ucm.meetmydog.modelos.NoticiasPerro;
 import com.ucm.meetmydog.modelos.Perro;
-import com.ucm.meetmydog.modelos.Usuario;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
