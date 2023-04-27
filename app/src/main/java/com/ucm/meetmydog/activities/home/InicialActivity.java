@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -54,7 +55,7 @@ import nl.joery.animatedbottombar.AnimatedBottomBar;
 
 public class InicialActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<NoticiasPerro>> {
 
-    Button buzon;
+    ImageButton buzon;
 
     private AnimatedBottomBar bottomBar;
     private List<NoticiasPerro> listaNoticias;
