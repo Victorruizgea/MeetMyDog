@@ -29,7 +29,7 @@
         android:orientation="vertical"
         android:id="@+id/Distancia"
         android:gravity="center"
-        android:paddingTop="50dp"
+        android:paddingTop="0dp"
         app:layout_constraintTop_toStartOf="@+id/filtroMapParent">
         <TextView
             android:id="@+id/DistanciaLabel"
@@ -55,9 +55,9 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="68dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="250dp"
+                android:layout_marginLeft="225dp"
                 android:text="10.000 m"
                 android:textStyle="bold" />
 
@@ -105,9 +105,9 @@
 
             <TextView
                 android:id="@+id/TiempoMax"
-                android:layout_width="wrap_content"
+                android:layout_width="62dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="250dp"
+                android:layout_marginLeft="230dp"
                 android:text="240 min"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -156,7 +156,7 @@
                 android:id="@+id/TamañoMax"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="250dp"
+                android:layout_marginLeft="260dp"
                 android:text="55 kg"
                 android:textStyle="bold" />
 
@@ -172,6 +172,23 @@
             app:layout_constraintTop_toBottomOf="@+id/TamañoTags"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/helpLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/Tamaño">
+
+        <TextView
+            android:id="@+id/textViewDisplayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vas a recorrer 100 m"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -179,7 +196,7 @@
         android:orientation="vertical"
         android:id="@+id/WalkButtons"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/Tamaño">
+        app:layout_constraintTop_toBottomOf="@+id/helpLayout">
         <CheckBox
             android:id="@+id/checkboxNoBusquedaPerros"
             android:layout_width="wrap_content"
