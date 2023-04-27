@@ -162,7 +162,7 @@
 
         </LinearLayout>
 
-        <com.google.android.material.slider.Slider
+        <com.google.android.material.slider.RangeSlider
             android:id="@+id/sliderTamañoPerro"
             android:valueFrom="5"
             android:valueTo="55"
