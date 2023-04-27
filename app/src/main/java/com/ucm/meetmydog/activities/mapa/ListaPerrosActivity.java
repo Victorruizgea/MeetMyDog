@@ -67,10 +67,12 @@ public class ListaPerrosActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     List<String> perros;
     String nombreDueno;
+    Button mapa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_perros);
+        mapa = findViewById(R.id.MapaBoton);
         mPreference = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
         String parameters = mPreference.getString("parameters", "");
         String nombrePerros = mPreference.getString("perros", "");
@@ -268,6 +270,13 @@ public class ListaPerrosActivity extends AppCompatActivity {
                 }
             });
         }
+        mapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListaPerrosActivity.this, MapaActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     private void descargarImagen(String imagenUri, ImageView view) {
 
