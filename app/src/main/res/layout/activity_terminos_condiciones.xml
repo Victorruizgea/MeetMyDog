@@ -29,7 +29,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Texto explicativo sobre las condiciones de uso"
+            android:hint="Dado que la aplicación utilizará tanto geolocalización como información de sus compañeros perrunos se deben aceptar las siguientes condiciones: \n
+            1.-Acepto compartir mi ubicación mientras estoy realizando el paseo \n
+            2. Acepto que la información de mi perro sea compartida con los usuarios de la zona"
             android:background="@drawable/border_stylo_solido"/>
         <CheckBox
             android:layout_width="match_parent"

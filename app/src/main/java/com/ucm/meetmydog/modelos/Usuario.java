@@ -11,16 +11,14 @@ public class Usuario implements Serializable {
     private String nombre;
 
     private String email;
-    private String password;
 
     private String imagenUri;
 
     
 
-    public Usuario(String nombre,String email,String password){
+    public Usuario(String nombre,String email){
         this.nombre=nombre;
         this.email=email;
-        this.password=password;
     }
     public Usuario(){
 
@@ -40,13 +38,6 @@ public class Usuario implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
     public String getImagenUri(){
         return imagenUri;
