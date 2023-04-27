@@ -8,33 +8,47 @@
     tools:context=".activities.mapa.SeleccionPerrosActivity">
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/bottom_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="527dp"
-        android:layout_marginBottom="102dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/contenedorPerrosSeleccionar"
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="383dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="30dp"
+            android:text="Seleccione arriba con qué perro quiere iniciar su paseo"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_height="527dp"
+            android:contentDescription="Perros para seleccionar"
+            android:layout_marginBottom="102dp">
+
+            <LinearLayout
+                android:id="@+id/contenedorPerrosSeleccionar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
+
+    </LinearLayout>
     </ScrollView>
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="383dp"
-        android:layout_height="59dp"
-        android:layout_marginBottom="30dp"
-        android:text="Seleccione arriba con qué perro quiere iniciar su paseo"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <nl.joery.animatedbottombar.AnimatedBottomBar
         android:id="@+id/bottom_bar"
         android:layout_width="0dp"

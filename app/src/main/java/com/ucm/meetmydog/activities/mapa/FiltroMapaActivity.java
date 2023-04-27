@@ -75,7 +75,7 @@ public class FiltroMapaActivity extends AppCompatActivity {
             }
         });
 
-        peso.addOnChangeListener(new RangeSlider.OnChangeListener() {
+            peso.addOnChangeListener(new RangeSlider.OnChangeListener() {
             @Override
             public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
                 List<Float> values = slider.getValues();
