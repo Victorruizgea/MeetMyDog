@@ -7,6 +7,23 @@
     android:background="@drawable/fondo"
     tools:context=".activities.perfil.PerfilUsuarioActivity">
 
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/bottom_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
     <ImageView
         android:id="@+id/imageUsuarioPerfilAmigo"
         android:layout_width="97dp"
@@ -58,6 +75,8 @@
             android:layout_height="match_parent"
             android:orientation="horizontal" />
     </HorizontalScrollView>
+    </LinearLayout>
+    </ScrollView>
 
     <nl.joery.animatedbottombar.AnimatedBottomBar
         android:id="@+id/bottom_bar"
