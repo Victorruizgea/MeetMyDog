@@ -6,17 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.mapa.FiltroMapaActivity"
+    android:background="@drawable/fondo"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/backgroundImage"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.5"
-        android:scaleType="centerCrop"
-        android:src="@drawable/fondo"/>
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
-                          <!-- TAB DISTANCIA -->
+
+                <!-- TAB DISTANCIA -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -194,6 +200,9 @@
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintTop_toBottomOf="@+id/checkboxNoBusquedaPerros"/>
     </LinearLayout>
+
+    </LinearLayout>
+    </ScrollView>
 
     <!-- BOTTOM BAR -->
     <nl.joery.animatedbottombar.AnimatedBottomBar
