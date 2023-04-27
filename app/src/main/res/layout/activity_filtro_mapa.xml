@@ -167,6 +167,7 @@
             android:valueFrom="5"
             android:valueTo="55"
             android:stepSize="5"
+            app:values="@array/rangeSlideValues"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/TamañoTags"/>
