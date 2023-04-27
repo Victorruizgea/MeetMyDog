@@ -74,6 +74,22 @@
         </LinearLayout>
 
 
+        <HorizontalScrollView
+            android:layout_width="411dp"
+            android:layout_height="359dp"
+            android:layout_marginBottom="65dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="Contenedor de perros"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:id="@+id/contenedorPerros"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
     </LinearLayout>
     </ScrollView>
 
