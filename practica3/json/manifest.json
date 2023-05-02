@@ -1,0 +1,21 @@
+{ 
+    "short_name": "Busca libros",
+    "name": "Buscador definitivo de libros super turbo diesel intercooler",
+    "description": "Buscador de libros como una PWA",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "Index.html",
+    "background_color": "#fdfdfd",
+    "theme_color": "#db4938",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/images/icons/icon-192x192.png",
+            "type": "image/png", "sizes": "192x192"
+        },
+        {
+            "src": "/images/icons/icon-512x512.png",
+            "type": "image/png", "sizes": "512x512"
+        }
+    ]
+}
